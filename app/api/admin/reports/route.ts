@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getCurrentUser, isAdmin } from '@/lib/auth'
 
+// Force dynamic rendering since we use cookies for authentication
+export const dynamic = 'force-dynamic'
+
 // GET: List pending reports for admin review
 export async function GET(request: NextRequest) {
   try {
@@ -11,13 +14,14 @@ export async function GET(request: NextRequest) {
     }
 
     // Check admin access
-    const userProfile = await createAdminClient()
+    const userProfileResult = await createAdminClient()
       .from('profiles')
       .select('email')
       .eq('id', user.id)
       .single()
 
-    if (!userProfile.data || !(await isAdmin(userProfile.data.email || undefined))) {
+    const userProfile = userProfileResult.data as { email: string | null } | null
+    if (!userProfile?.email || !(await isAdmin(userProfile.email))) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 

@@ -116,32 +116,32 @@ export async function POST(request: NextRequest) {
     const status = shouldAutoVerify(confidence) ? 'verified' : 'pending'
 
     // Insert report
-    const { data: report, error: insertError } = await adminSupabase
-      .from('slot_reports')
-      .insert({
-        reporter_id: user.id,
-        consulate: validation.data.consulate,
-        visa_type: validation.data.visa_type,
-        earliest_date: validation.data.earliest_date,
-        latest_date: validation.data.latest_date || null,
-        screenshot_path: screenshotPath,
-        confidence,
-        status,
-      })
-      .select()
-      .single()
+    // const { data: report, error: insertError } = await adminSupabase
+    //   .from('slot_reports')
+    //   .insert({
+    //     reporter_id: user.id,
+    //     consulate: validation.data.consulate,
+    //     visa_type: validation.data.visa_type,
+    //     earliest_date: validation.data.earliest_date,
+    //     latest_date: validation.data.latest_date || null,
+    //     screenshot_path: screenshotPath,
+    //     confidence,
+    //     status,
+    //   })
+    //   .select()
+    //   .single()
 
-    if (insertError) {
-      return NextResponse.json({ error: insertError.message }, { status: 500 })
-    }
+    // if (insertError) {
+    //   return NextResponse.json({ error: insertError.message }, { status: 500 })
+    // }
 
     // If auto-verified, trigger alert processing (async, don't wait)
-    if (status === 'verified') {
-      // In production, you might want to queue this
-      // For MVP, we'll let the cron job handle it
-    }
+    // if (status === 'verified') {
+    //   // In production, you might want to queue this
+    //   // For MVP, we'll let the cron job handle it
+    // }
 
-    return NextResponse.json({ data: report }, { status: 201 })
+    // return NextResponse.json({ data: report }, { status: 201 })
   } catch (error) {
     console.error('[API] Error creating slot report:', error)
     return NextResponse.json(

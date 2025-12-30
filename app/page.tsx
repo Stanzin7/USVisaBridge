@@ -133,7 +133,7 @@ export default async function Home() {
               <div className="space-y-3">
                 <h3 className="text-2xl font-semibold">2. We Monitor</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Our system checks for available appointments every 2 minutes, 24/7, so you don't have to.
+                  Our system checks for available appointments every 2 minutes, 24/7, so you don&apos;t have to.
                 </p>
               </div>
             </Card>
