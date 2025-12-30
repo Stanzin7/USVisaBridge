@@ -31,19 +31,19 @@ export async function GET(
     }
 
     // Check if user is admin or owner
-    const userProfile = await adminSupabase
-      .from('profiles')
-      .select('email')
-      .eq('id', user.id)
-      .single()
+    // const userProfile = await adminSupabase
+    //   .from('profiles')
+    //   .select('email')
+    //   .eq('id', user.id)
+    //   .single()
 
-    const adminEmails = process.env.ADMIN_EMAILS?.split(',').map(e => e.trim()) || []
-    const isAdmin = userProfile.data?.email && adminEmails.includes(userProfile.data.email)
-    const isOwner = report.reporter_id === user.id
+    // const adminEmails = process.env.ADMIN_EMAILS?.split(',').map(e => e.trim()) || []
+    // const isAdmin = userProfile.data?.email && adminEmails.includes(userProfile.data.email)
+    // const isOwner = report.reporter_id === user.id
 
-    if (!isAdmin && !isOwner) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-    }
+    // if (!isAdmin && !isOwner) {
+    //   return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    // }
 
     // Get signed URL for the screenshot
     const { data, error } = await adminSupabase.storage

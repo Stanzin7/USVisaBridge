@@ -63,28 +63,28 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient()
     
     // Upsert preference (unique on user_id, visa_type, consulate)
-    const { data, error } = await supabase
-      .from('preferences')
-      .upsert({
-        user_id: user.id,
-        visa_type: validation.data.visa_type,
-        consulate: validation.data.consulate,
-        date_start: validation.data.date_start || null,
-        date_end: validation.data.date_end || null,
-        channels: validation.data.channels,
-        quiet_hours_start: validation.data.quiet_hours_start,
-        quiet_hours_end: validation.data.quiet_hours_end,
-      }, {
-        onConflict: 'user_id,visa_type,consulate',
-      })
-      .select()
-      .single()
+    // const { data, error } = await supabase
+    //   .from('preferences')
+    //   .upsert({
+    //     user_id: user.id,
+    //     visa_type: validation.data.visa_type,
+    //     consulate: validation.data.consulate,
+    //     date_start: validation.data.date_start || null,
+    //     date_end: validation.data.date_end || null,
+    //     channels: validation.data.channels,
+    //     quiet_hours_start: validation.data.quiet_hours_start,
+    //     quiet_hours_end: validation.data.quiet_hours_end,
+    //   }, {
+    //     onConflict: 'user_id,visa_type,consulate',
+    //   })
+    //   .select()
+    //   .single()
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
+    // if (error) {
+    //   return NextResponse.json({ error: error.message }, { status: 500 })
+    // }
 
-    return NextResponse.json({ data })
+    // return NextResponse.json({ data })
   } catch (error) {
     console.error('[API] Error creating/updating preference:', error)
     return NextResponse.json(

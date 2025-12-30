@@ -9,12 +9,13 @@ export async function AdminNavLink() {
 
     if (!user) return null
 
-    const { data: profile } = await supabase
+    const profileResult = await supabase
       .from('profiles')
       .select('email')
       .eq('id', user.id)
       .single()
 
+    const profile = profileResult.data as { email: string | null } | null
     if (!profile?.email || !(await isAdmin(profile.email))) {
       return null
     }

@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getCurrentUser, isAdmin } from '@/lib/auth'
 
+// Force dynamic rendering since we use cookies for authentication
+export const dynamic = 'force-dynamic'
+
 // POST: Approve or reject a report
 export async function POST(
   request: NextRequest,
@@ -14,13 +17,14 @@ export async function POST(
     }
 
     // Check admin access
-    const userProfile = await createAdminClient()
+    const userProfileResult = await createAdminClient()
       .from('profiles')
       .select('email')
       .eq('id', user.id)
       .single()
 
-    if (!userProfile.data || !(await isAdmin(userProfile.data.email || undefined))) {
+    const userProfile = userProfileResult.data as { email: string | null } | null
+    if (!userProfile?.email || !(await isAdmin(userProfile.email))) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -36,10 +40,10 @@ export async function POST(
 
     const adminSupabase = createAdminClient()
 
-    // Update report status
-    const { data: report, error: updateError } = await adminSupabase
-      .from('slot_reports')
-      .update({ status: decision })
+    // Update report status  
+    const { data: report, error: updateError } = await (adminSupabase
+      .from('slot_reports') as any)
+      .update({ status: decision as 'verified' | 'rejected' })
       .eq('id', params.id)
       .select()
       .single()
@@ -53,8 +57,8 @@ export async function POST(
     }
 
     // Create verification record
-    const { error: verificationError } = await adminSupabase
-      .from('report_verification')
+    const { error: verificationError } = await (adminSupabase
+      .from('report_verification') as any)
       .insert({
         report_id: params.id,
         reviewer_id: user.id,
@@ -67,7 +71,7 @@ export async function POST(
     }
 
     // Create audit event
-    await adminSupabase.from('audit_events').insert({
+    await (adminSupabase.from('audit_events') as any).insert({
       actor_id: user.id,
       action: `report_${decision}`,
       meta: {

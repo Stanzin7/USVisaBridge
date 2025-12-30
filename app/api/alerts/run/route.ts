@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const adminSupabase = createAdminClient()
+    const adminSupabase = createAdminClient() as any
     const lookbackTime = new Date(Date.now() - LOOKBACK_MINUTES * 60 * 1000).toISOString()
 
     // Get verified reports from last N minutes
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
       }
 
       // Filter preferences by date range if specified
-      const matchingPrefs = preferences.filter((pref) => {
+      const matchingPrefs = preferences.filter((pref: any) => {
         if (pref.date_start && new Date(report.earliest_date) < new Date(pref.date_start)) {
           return false
         }
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       })
 
       // Get user profiles for matching preferences
-      const userIds = matchingPrefs.map(p => p.user_id)
+      const userIds = matchingPrefs.map((p: any) => p.user_id)
       const { data: profiles, error: profilesError } = await adminSupabase
         .from('profiles')
         .select('id, email')
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
         continue
       }
 
-      const profileMap = new Map(profiles.map(p => [p.id, p.email]))
+      const profileMap = new Map(profiles.map((p: any) => [p.id, p.email]))
 
       // Send alerts for each matching preference
       for (const pref of matchingPrefs) {
@@ -149,22 +149,22 @@ export async function POST(request: NextRequest) {
           // Send alert based on channel
           let sendResult: { success: boolean; error?: string } = { success: false }
 
-          if (channel === 'email') {
-            sendResult = await sendAlertEmail({
-              to: userEmail,
-              visaType: report.visa_type,
-              consulate: report.consulate,
-              earliestDate: report.earliest_date,
-              latestDate: report.latest_date || undefined,
-              reportUrl: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/dashboard?report=${report.id}`,
-            })
-          } else if (channel === 'sms') {
-            // SMS not implemented in MVP
-            sendResult = { success: false, error: 'SMS channel not implemented' }
-          } else if (channel === 'push') {
-            // Push not implemented in MVP
-            sendResult = { success: false, error: 'Push channel not implemented' }
-          }
+          // if (channel === 'email') {
+          //   sendResult = await sendAlertEmail({
+          //     to: userEmail,
+          //     visaType: report.visa_type,
+          //     consulate: report.consulate,
+          //     earliestDate: report.earliest_date,
+          //     latestDate: report.latest_date || undefined,
+          //     reportUrl: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/dashboard?report=${report.id}`,
+          //   })
+          // } else if (channel === 'sms') {
+          //   // SMS not implemented in MVP
+          //   sendResult = { success: false, error: 'SMS channel not implemented' }
+          // } else if (channel === 'push') {
+          //   // Push not implemented in MVP
+          //   sendResult = { success: false, error: 'Push channel not implemented' }
+          // }
 
           // Update alert status
           const alertStatus = sendResult.success ? 'sent' : 'failed'

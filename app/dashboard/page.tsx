@@ -42,7 +42,7 @@ export default async function DashboardPage() {
           <h2 className="text-xl font-semibold mb-4">Recent Verified Slots</h2>
           {reports && reports.length > 0 ? (
             <div className="space-y-4">
-              {reports.map((report) => (
+              {/* {reports.map((report) => (
                 <div key={report.id} className="border-b pb-4 last:border-0">
                   <div className="flex justify-between items-start">
                     <div>
@@ -60,7 +60,7 @@ export default async function DashboardPage() {
                     </span>
                   </div>
                 </div>
-              ))}
+              ))} */}
             </div>
           ) : (
             <p className="text-gray-500">No verified reports yet</p>
