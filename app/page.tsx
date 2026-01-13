@@ -4,7 +4,10 @@ import { redirect } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Bell, Shield, Zap, Clock, Lock, Eye, CheckCircle2, Globe } from 'lucide-react'
+import { AspectRatio } from '@/components/ui/aspect-ratio'
+import { Bell, Shield, CheckCircle2, Lock, Eye, Zap, Download, Play } from 'lucide-react'
+import { AlertChannelsSection } from "@/components/AlertChannelsSection"
+import { CHROME_EXTENSION_URL } from '@/lib/config/links'
 
 export default async function Home() {
   const supabase = await createClient()
@@ -16,46 +19,39 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
+      {/* HERO SECTION */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#0a0d1a] via-[#111827] to-background">
-        {/* Floating Status Indicators */}
+        {/* Status Indicators */}
         <div className="absolute top-8 right-8 hidden lg:flex gap-3">
-          <Badge
-            variant="secondary"
-            className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 backdrop-blur-sm px-4 py-2 animate-pulse-slow"
-          >
-            <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-ping absolute" />
-            <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2" />
+          <span className="inline-flex items-center justify-center rounded-md border text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden bg-emerald-500/10 text-emerald-400 border-emerald-500/20 backdrop-blur-sm px-4 py-2 animate-pulse-slow relative">
+            <div className="relative flex items-center mr-2">
+              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-ping absolute"></div>
+              <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+            </div>
             Live monitoring
-          </Badge>
-          <Badge
-            variant="secondary"
-            className="bg-blue-500/10 text-blue-400 border-blue-500/20 backdrop-blur-sm px-4 py-2"
-          >
-            <Clock className="w-3 h-3 mr-2" />
-            Auto-checks every 2 min
-          </Badge>
+          </span>
+          <span className="inline-flex items-center justify-center rounded-md border text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden bg-blue-500/10 text-blue-400 border-blue-500/20 backdrop-blur-sm px-4 py-2">
+            <Shield className="w-3 h-3 mr-2" />
+            Smart availability monitoring
+          </span>
         </div>
-
-        <div className="container mx-auto px-4 pt-24 pb-32">
+        <div className="container mx-auto px-4 pt-32 pb-32">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="inline-flex items-center gap-2 bg-primary/5 backdrop-blur-sm border border-primary/10 rounded-full px-4 py-2 mb-4">
               <Zap className="w-4 h-4 text-primary" />
-              <span className="text-sm text-muted-foreground">Real-time visa appointment monitoring</span>
+              <span className="text-sm text-muted-foreground">Free, Legal, Open-Source</span>
             </div>
-
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
-              Never Miss a U.S. Visa
+              Get Alerts When U.S. Visa
               <br />
               <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                Appointment Again
+                Appointments Open
               </span>
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
-              Get instant alerts when visa appointments open up.{" "}
-              <span className="text-foreground font-medium">No credentials required</span>,{" "}
-              <span className="text-foreground font-medium">privacy-first</span>, and completely automated.
+              Install our browser extension to join a community-powered alert system. 
+              You book appointments yourself. No passwords. No fees. Fully open source.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -64,10 +60,10 @@ export default async function Home() {
                 className="text-lg px-8 py-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all"
                 asChild
               >
-                <Link href="/auth/login">
-                  <Bell className="w-5 h-5 mr-2" />
-                  Get Instant Alerts
-                </Link>
+                <a href={CHROME_EXTENSION_URL} target="_blank" rel="noopener noreferrer">
+                  <Download className="w-5 h-5 mr-2" />
+                  Install Extension
+                </a>
               </Button>
               <Button
                 size="lg"
@@ -76,76 +72,125 @@ export default async function Home() {
                 asChild
               >
                 <Link href="/auth/login">
-                  See How It Works
+                  <Bell className="w-5 h-5 mr-2" />
+                  Get Started (Email Alerts)
                 </Link>
               </Button>
             </div>
 
-            {/* Trust Signals */}
-            <div className="flex flex-wrap items-center justify-center gap-6 pt-8 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Used by 10,000+ applicants</span>
+            <p className="text-sm text-muted-foreground pt-4">
+              No passwords. No screenshots. You book it yourself.
+            </p>
+          </div>
+          
+          {/* Feature Banner */}
+          <div className="mt-16 border-t border-border/20 pt-8">
+            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-purple-400" />
+                </div>
+                <span className="text-sm text-muted-foreground font-medium">No Credentials Required</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Lock className="w-4 h-4 text-blue-400" />
-                <span>No login required</span>
+              
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                  <Eye className="w-5 h-5 text-blue-400" />
+                </div>
+                <span className="text-sm text-muted-foreground font-medium">Public Data Only</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-yellow-400" />
-                <span>2-minute checks</span>
+              
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                </div>
+                <span className="text-sm text-muted-foreground font-medium">You Book It Yourself</span>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                  <Lock className="w-5 h-5 text-blue-400" />
+                </div>
+                <span className="text-sm text-muted-foreground font-medium">Privacy-First</span>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background pointer-events-none" />
       </section>
 
-      {/* How It Works Section */}
-      <section className="py-24 px-4">
+      {/* VIDEO PLACEHOLDER SECTION */}
+      <section className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-8 space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold">Watch How It Works (60 seconds)</h2>
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+              See exactly what we do — and what we never ask for.
+            </p>
+          </div>
+          
+          <Card className="overflow-hidden border-border/50 bg-muted/30">
+            <AspectRatio ratio={16 / 9} className="bg-muted">
+              <div className="flex h-full w-full items-center justify-center">
+                <div className="text-center space-y-4">
+                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                    <Play className="w-10 h-10 text-primary" />
+                  </div>
+                  <p className="text-sm text-muted-foreground">Video coming soon</p>
+                </div>
+              </div>
+            </AspectRatio>
+          </Card>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS SECTION */}
+      <section id="how-it-works" className="py-24 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold text-balance">How It Works</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              Simple, fast, and completely automated monitoring
+              Three simple steps to never miss an appointment slot
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-all group">
               <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Bell className="w-7 h-7 text-blue-400" />
+                <Download className="w-7 h-7 text-blue-400" />
               </div>
               <div className="space-y-3">
-                <h3 className="text-2xl font-semibold">1. Set Your Alert</h3>
+                <h3 className="text-2xl font-semibold">1. Install Extension</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Choose your visa type, location, and preferred dates. No account or credentials needed.
+                  Install our browser extension from Chrome Web Store. We show you exactly what permissions 
+                  we need and why.
                 </p>
               </div>
             </Card>
 
             <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-all group">
               <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Eye className="w-7 h-7 text-emerald-400" />
+                <Zap className="w-7 h-7 text-emerald-400" />
               </div>
               <div className="space-y-3">
-                <h3 className="text-2xl font-semibold">2. We Monitor</h3>
+                <h3 className="text-2xl font-semibold">2. Choose Visa Type + Location</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Our system checks for available appointments every 2 minutes, 24/7, so you don&apos;t have to.
+                  Tell us your visa type, which embassy or consulate you need, and your preferred dates. 
+                  That&apos;s all we need to send you alerts.
                 </p>
               </div>
             </Card>
 
             <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-all group">
               <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Zap className="w-7 h-7 text-purple-400" />
+                <Bell className="w-7 h-7 text-purple-400" />
               </div>
               <div className="space-y-3">
-                <h3 className="text-2xl font-semibold">3. Get Notified</h3>
+                <h3 className="text-2xl font-semibold">3. Get Alerts</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Receive instant notifications via email or SMS the moment a slot becomes available.
+                  When slots become available (detected by community members who choose to share), you get 
+                  an email alert immediately. You book it yourself through the official portal. 
+                  Email alerts available now. SMS and WhatsApp coming soon.
                 </p>
               </div>
             </Card>
@@ -153,152 +198,205 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Supported Visa Types */}
-      <section className="py-24 px-4 bg-muted/30">
+      {/* CORE TECHNOLOGY SECTION */}
+      <section className="py-24 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-balance">Supported Visa Types</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              Monitoring all major U.S. visa categories
+            <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 mb-4">
+              Core Technology
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold text-balance">
+              Our Browser Extension: The Heart of Our Service
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
+              Our browser extension is what makes real-time slot monitoring possible. Unlike competitors, 
+              we built it with privacy, transparency, and legal compliance from day one.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'B1/B2', desc: 'Tourist & Business', icon: Globe },
-              { title: 'F1', desc: 'Student Visa', icon: Globe },
-              { title: 'H1B', desc: 'Work Visa', icon: Globe },
-              { title: 'O1', desc: 'Extraordinary Ability', icon: Globe },
-              { title: 'L1', desc: 'Intra-company Transfer', icon: Globe },
-              { title: 'J1', desc: 'Exchange Visitor', icon: Globe },
-              { title: 'K1', desc: 'Fiancé(e) Visa', icon: Globe },
-              { title: 'E2', desc: 'Investor Visa', icon: Globe },
-            ].map((visa, i) => (
-              <Card
-                key={i}
-                className="p-6 bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-all hover:scale-105"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <visa.icon className="w-5 h-5 text-primary" />
+          <Card className="p-8 bg-gradient-to-br from-primary/5 to-blue-600/5 border-primary/20">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Zap className="w-6 h-6 text-primary" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold mb-2">Why We Need an Extension</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Visa slot availability changes in real-time. To provide instant alerts, we need to monitor 
+                  the appointment calendar continuously. Our browser extension allows users to <strong className="text-foreground">voluntarily share</strong> 
+                  slot availability data they see, helping the entire community get notified faster.
+                </p>
+                <Link href="/extension" className="text-primary hover:underline text-sm font-medium inline-flex items-center gap-1 mb-4">
+                  See permissions & data use →
+                </Link>
+                <div className="grid md:grid-cols-2 gap-4 mt-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-sm">Real-Time Monitoring</p>
+                      <p className="text-sm text-muted-foreground">Detects slot availability the moment it appears</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">{visa.title}</h3>
-                    <p className="text-sm text-muted-foreground">{visa.desc}</p>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-sm">No Credentials Required</p>
+                      <p className="text-sm text-muted-foreground">Works with publicly visible data only</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-sm">Community-Powered</p>
+                      <p className="text-sm text-muted-foreground">Users voluntarily share data to help others</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-sm">Fully Transparent</p>
+                      <p className="text-sm text-muted-foreground">Open source code you can verify</p>
+                    </div>
                   </div>
                 </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Security & Privacy */}
-      <section className="py-24 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-balance">Security & Privacy</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              Your privacy is our priority. We never ask for sensitive information.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-10 bg-gradient-to-br from-blue-500/5 to-blue-600/5 border-blue-500/20 backdrop-blur-sm">
-              <Shield className="w-12 h-12 text-blue-400 mb-6" />
-              <h3 className="text-2xl font-semibold mb-4">No Credentials Required</h3>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                We never ask for your passport number, visa credentials, or personal login information. Just your email
-                to send alerts.
-              </p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400" />
-                  No password storage
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400" />
-                  No government credentials
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400" />
-                  No personal documents
-                </li>
-              </ul>
-            </Card>
-
-            <Card className="p-10 bg-gradient-to-br from-emerald-500/5 to-emerald-600/5 border-emerald-500/20 backdrop-blur-sm">
-              <Lock className="w-12 h-12 text-emerald-400 mb-6" />
-              <h3 className="text-2xl font-semibold mb-4">Privacy-First Approach</h3>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                We use industry-standard encryption and never share your data with third parties. Your information stays
-                secure.
-              </p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  End-to-end encryption
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  No data sharing
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  GDPR compliant
-                </li>
-              </ul>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 px-4 bg-gradient-to-b from-muted/30 to-background">
-        <div className="container mx-auto max-w-4xl text-center">
-          <Card className="p-12 md:p-16 bg-gradient-to-br from-primary/5 to-blue-600/5 border-primary/20 backdrop-blur-sm">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Start Monitoring Today</h2>
-            <p className="text-xl text-muted-foreground mb-8 text-pretty max-w-2xl mx-auto">
-              Join thousands of applicants who secured their visa appointments with our automated monitoring system.
-            </p>
-            <Button
-              size="lg"
-              className="text-lg px-10 py-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all"
-              asChild
-            >
-              <Link href="/auth/login">
-                <Bell className="w-5 h-5 mr-2" />
-                Get Started for Free
-              </Link>
-            </Button>
-            <p className="text-sm text-muted-foreground mt-6">No credit card required · Cancel anytime</p>
+              </div>
+            </div>
           </Card>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-4 border-t border-border/50">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Bell className="w-5 h-5" />
-              <span className="font-semibold text-foreground">Visa Alert</span>
-            </div>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-foreground transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
-                Terms of Service
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
-                Contact
-              </a>
-            </div>
-            <p>© 2025 Visa Alert. All rights reserved.</p>
+      {/* IS THIS SAFE? SECTION */}
+      <section className="py-24 px-4 bg-muted/10">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12 space-y-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-balance">Is This Safe?</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
+              Yes. Here&apos;s what we do — and what we never ask for.
+            </p>
+          </div>
+
+          <div className="space-y-6 mb-8">
+            <Card className="p-6 bg-card border-border">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">We never ask for your visa password</h3>
+                  <p className="text-muted-foreground">
+                    You always log in on the official site yourself. We don&apos;t need your login to send alerts.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-6 bg-card border-border">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">We never capture your screen or personal details</h3>
+                  <p className="text-muted-foreground">
+                    Some unsafe tools capture what&apos;s on your screen. We don&apos;t. We only detect whether a slot is available.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-6 bg-card border-border">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">We only read what you can already see</h3>
+                  <p className="text-muted-foreground">
+                    We check appointment availability that appears on your screen. We don&apos;t access hidden account data.
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          <div className="text-center">
+            <Link href="/privacy" className="text-primary hover:underline inline-flex items-center gap-1 text-sm font-medium">
+              Learn about safety & privacy →
+            </Link>
           </div>
         </div>
-      </footer>
+      </section>
+
+      {/* IMPORTANT SECURITY REMINDER */}
+      <section className="py-8 px-4 bg-muted/10">
+        <div className="container mx-auto max-w-4xl">
+          <Card className="p-6 bg-yellow-500/5 border-yellow-500/30 border-2">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center shrink-0">
+                <Shield className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+              </div>
+              <div className="space-y-3 flex-1">
+                <h3 className="text-lg font-semibold text-foreground">Important Security Reminder</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Never share your visa account password, passport number, or personal documents with any service, 
+                  including this one. Legitimate appointment alert services only need your email address. If a service 
+                  asks for your password or passport details, it&apos;s likely a scam.
+                </p>
+                <p className="text-sm text-muted-foreground font-medium">
+                  We will never ask for your visa account password, passport number, or any personal documents.
+                </p>
+                <div className="pt-2">
+                  <Link href="/safety" className="text-primary hover:underline inline-flex items-center gap-1 text-sm font-medium">
+                    Learn about safety & privacy →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* ALERT CHANNELS SECTION */}
+      <AlertChannelsSection />
+
+      {/* FINAL CTA SECTION */}
+      <section className="py-24 px-4 bg-muted/10">
+        <div className="container mx-auto max-w-4xl text-center">
+          <Card className="p-12 md:p-16 bg-gradient-to-br from-primary/5 to-blue-600/5 border-primary/20 backdrop-blur-sm">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Ready to Get Started?</h2>
+            <p className="text-xl text-muted-foreground mb-8 text-pretty max-w-2xl mx-auto">
+              Join thousands of people who got their visa appointments faster with our free alerts.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                className="text-lg px-10 py-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all"
+                asChild
+              >
+                <a href={CHROME_EXTENSION_URL} target="_blank" rel="noopener noreferrer">
+                  <Download className="w-5 h-5 mr-2" />
+                  Install Extension
+                </a>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-lg px-10 py-6 border-border/50 backdrop-blur-sm bg-transparent"
+                asChild
+              >
+                <Link href="/auth/login">
+                  <Bell className="w-5 h-5 mr-2" />
+                  Create Account
+                </Link>
+              </Button>
+            </div>
+            <p className="text-sm text-muted-foreground mt-6">
+              No credit card. No passwords. You book it yourself.
+            </p>
+          </Card>
+        </div>
+      </section>
+
     </main>
   )
 }
