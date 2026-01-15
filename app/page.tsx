@@ -50,8 +50,8 @@ export default async function Home() {
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
-              Install our browser extension to join a community-powered alert system. 
-              You book appointments yourself. No passwords. No fees. Fully open source.
+              USVisaBridge account required for alerts; extension detects availability; you book yourself. 
+              No visa portal password required. No fees. Fully open source.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -60,10 +60,10 @@ export default async function Home() {
                 className="text-lg px-8 py-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all"
                 asChild
               >
-                <a href={CHROME_EXTENSION_URL} target="_blank" rel="noopener noreferrer">
-                  <Download className="w-5 h-5 mr-2" />
-                  Install Extension
-                </a>
+                <Link href="/auth/login">
+                  <Bell className="w-5 h-5 mr-2" />
+                  Create Account / Get Started
+                </Link>
               </Button>
               <Button
                 size="lg"
@@ -71,15 +71,15 @@ export default async function Home() {
                 className="text-lg px-8 py-6 border-border/50 backdrop-blur-sm bg-transparent"
                 asChild
               >
-                <Link href="/auth/login">
-                  <Bell className="w-5 h-5 mr-2" />
-                  Get Started (Email Alerts)
-                </Link>
+                <a href={CHROME_EXTENSION_URL} target="_blank" rel="noopener noreferrer">
+                  <Download className="w-5 h-5 mr-2" />
+                  Install Extension
+                </a>
               </Button>
             </div>
 
             <p className="text-sm text-muted-foreground pt-4">
-              No passwords. No screenshots. You book it yourself.
+              No visa portal password required. Extension detects availability; you book yourself.
             </p>
           </div>
           
@@ -90,7 +90,7 @@ export default async function Home() {
                 <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
                   <Shield className="w-5 h-5 text-purple-400" />
                 </div>
-                <span className="text-sm text-muted-foreground font-medium">No Credentials Required</span>
+                <span className="text-sm text-muted-foreground font-medium">No Visa Portal Password Required</span>
               </div>
               
               <div className="flex items-center gap-3">
@@ -240,7 +240,7 @@ export default async function Home() {
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold text-sm">No Credentials Required</p>
+                      <p className="font-semibold text-sm">No Visa Portal Password Required</p>
                       <p className="text-sm text-muted-foreground">Works with publicly visible data only</p>
                     </div>
                   </div>
@@ -391,7 +391,7 @@ export default async function Home() {
               </Button>
             </div>
             <p className="text-sm text-muted-foreground mt-6">
-              No credit card. No passwords. You book it yourself.
+              No visa portal password required. No fees. You book it yourself.
             </p>
           </Card>
         </div>
