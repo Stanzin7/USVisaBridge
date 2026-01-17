@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  ocr:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - paddle_models:/models
+
+volumes:
+  paddle_models:
