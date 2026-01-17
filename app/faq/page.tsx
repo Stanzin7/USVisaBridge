@@ -12,9 +12,9 @@ export default function FAQPage() {
         "Unlike competitors that violate privacy laws, we&apos;re 100% free, open source, and legally compliant. We never intercept API calls, capture screenshots, store credentials, or collect PII without consent. Our code is open source, so you can verify our privacy practices yourself.",
     },
     {
-      question: "Are you a browser extension?",
+      question: "How do you monitor visa slots?",
       answer:
-        "Yes, we have a browser extension, but it works completely differently from illegal competitors. Our extension is 100% open source, requires explicit consent before collecting any data, never intercepts API calls, never stores credentials, and only reads publicly visible appointment data that you can see yourself. Unlike illegal extensions that automatically collect data without permission, our extension asks for your consent first and shows you exactly what will be shared. You can opt-out anytime. The extension is the core component that enables real-time slot monitoring, but we built it legally with privacy-first principles. See our Extension section on the homepage for detailed comparison.",
+        "Community members voluntarily upload screenshots of the appointment calendar (manual, user-initiated). We extract availability data from these screenshots and analyze patterns. We never run code on the visa portal site, never automatically capture screenshots, and never intercept API calls. All uploads are manual and voluntary.",
     },
     {
       question: "Is the code really open source?",
@@ -74,7 +74,7 @@ export default function FAQPage() {
     {
       question: "Is using this service legal?",
       answer:
-        "Yes. We only access publicly available information and do not bypass any security measures or authentication systems. We&apos;re fully compliant with GDPR, CCPA, and all applicable privacy regulations. We don&apos;t intercept APIs, capture screenshots, or collect PII without consent.",
+        "Yes. We only access publicly available information. We don&apos;t access the portal on your behalf or run any code on the visa portal site. Automation-free by design (manual uploads only). Users are responsible for following the portal&apos;s terms and local rules. We don&apos;t intercept APIs, automatically capture screenshots, or collect PII without consent.",
     },
     {
       question: "How do I know this is not a scam?",

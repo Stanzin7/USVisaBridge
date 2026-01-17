@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Eye, Shield, Lock, CheckCircle2, X, Globe, Clock, Zap, Code, Download } from "lucide-react"
+import { Eye, Shield, Lock, CheckCircle2, X, Globe, Clock, Zap } from "lucide-react"
 import Link from "next/link"
 
 export default function HowItWorksPage() {
@@ -21,7 +21,7 @@ export default function HowItWorksPage() {
     "Social security numbers",
     "Login credentials or passwords",
     "Private API communications",
-    "Screenshots of personal information",
+    "Automatically captured screenshots (we never run code on the visa portal site)",
   ]
 
   return (
@@ -43,9 +43,9 @@ export default function HowItWorksPage() {
             <Eye className="w-12 h-12 text-primary mx-auto" />
             <h2 className="text-3xl font-bold">Overview</h2>
             <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              We monitor publicly available U.S. visa appointment slot availability data to detect changes in real time. 
-              When appointment slots become available, we notify you immediately so you can book through official U.S. 
-              government channels.
+              Community members voluntarily share availability snapshots through manual screenshot uploads. 
+              We analyze patterns and timing trends. When community members report sightings, you get alerts: 
+              &quot;Last seen X minutes ago&quot; so you can check the official portal yourself.
             </p>
             <div className="flex items-center justify-center gap-2 text-sm text-emerald-400 pt-4">
               <CheckCircle2 className="w-4 h-4" />
@@ -121,65 +121,6 @@ export default function HowItWorksPage() {
           </div>
         </Card>
 
-        {/* Browser Extension Component */}
-        <Card className="p-8 mb-8 bg-gradient-to-br from-primary/5 to-blue-600/5 border-primary/20">
-          <div className="flex items-start gap-4 mb-6">
-            <Code className="w-8 h-8 text-primary shrink-0" />
-            <div>
-              <h2 className="text-3xl font-bold mb-2">Our Browser Extension: The Core Technology</h2>
-              <p className="text-muted-foreground">
-                Our browser extension is what makes real-time monitoring possible. Here&apos;s how it works legally.
-              </p>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-xl font-semibold mb-3">How Our Extension Works (Legal Approach)</h3>
-              <ol className="space-y-3 text-muted-foreground ml-6 list-decimal">
-                <li><strong className="text-foreground">You install the extension</strong> and explicitly grant permission to read publicly visible appointment data</li>
-                <li><strong className="text-foreground">You visit the visa portal</strong> to check for available slots (you log in yourself through the official portal)</li>
-                <li><strong className="text-foreground">Consent dialog appears</strong> asking if you want to share slot availability data to help others</li>
-                <li><strong className="text-foreground">You see a preview</strong> of exactly what data will be shared (location, date count, no personal info)</li>
-                <li><strong className="text-foreground">You choose to share or keep private</strong> - full control over your data</li>
-                <li><strong className="text-foreground">If you share:</strong> Only anonymized slot availability data is sent (location name, number of available dates, timestamp)</li>
-                <li><strong className="text-foreground">Community benefits:</strong> When slots are detected, all users with matching preferences get instant alerts</li>
-              </ol>
-            </div>
-
-            <div className="p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
-              <h4 className="font-semibold mb-2 text-emerald-400">Key Legal Principles</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground ml-4 list-disc">
-                <li><strong className="text-foreground">Explicit consent:</strong> We ask permission BEFORE collecting any data</li>
-                <li><strong className="text-foreground">No API interception:</strong> We only read user-visible data, never intercept private communications</li>
-                <li><strong className="text-foreground">No credentials:</strong> We never ask for or store your visa portal login credentials</li>
-                <li><strong className="text-foreground">Transparency:</strong> You see exactly what data is collected and can opt-out anytime</li>
-                <li><strong className="text-foreground">Open source:</strong> Our extension code is publicly available for verification</li>
-                <li><strong className="text-foreground">Data minimization:</strong> We only collect what&apos;s necessary (slot availability, not personal info)</li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-semibold mb-3">What We Do NOT Do (Unlike Illegal Competitors)</h3>
-              <ul className="space-y-2 text-muted-foreground ml-6 list-disc">
-                <li>We do not automatically collect data without consent</li>
-                <li>We do not intercept API calls between you and the visa portal</li>
-                <li>We do not capture screenshots without explicit permission</li>
-                <li>We do not store passwords or credentials (even encrypted)</li>
-                <li>We do not send data before asking for consent</li>
-                <li>We do not access private information or break into systems</li>
-                <li>We do not hide our data collection practices</li>
-              </ul>
-            </div>
-
-            <div className="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
-              <p className="text-sm text-muted-foreground">
-                <strong className="text-foreground">Learn more:</strong> See our detailed Extension section on the homepage for a side-by-side comparison 
-                of legal vs illegal extension approaches. <Link href="/#extension" className="text-primary hover:underline">View Extension Section →</Link>
-              </p>
-            </div>
-          </div>
-        </Card>
 
         {/* Technical Details */}
         <Card className="p-8 mb-8 bg-card border-border">
@@ -197,11 +138,11 @@ export default function HowItWorksPage() {
             <div>
               <h3 className="text-xl font-semibold mb-3">Data Flow</h3>
               <ol className="space-y-3 text-muted-foreground ml-6 list-decimal">
-                <li>Users voluntarily share slot availability data through our browser extension (with explicit consent)</li>
+                <li>Users manually take screenshots and voluntarily upload them (manual, user-initiated)</li>
                 <li>Data is anonymized and verified (removes all personal information)</li>
-                <li>We detect changes in appointment slot availability in real time</li>
-                <li>We compare current availability with previous data to identify new slots</li>
-                <li>When new U.S. visa appointment slots are detected, we immediately send notifications to users with matching preferences</li>
+                <li>We extract structured data from screenshots (dates, location, visa type)</li>
+                <li>We analyze patterns and timing trends from community reports</li>
+                <li>When community members report sightings, users with matching preferences get alerts: &quot;Last seen X minutes ago&quot;</li>
               </ol>
             </div>
           </div>
@@ -265,8 +206,8 @@ export default function HowItWorksPage() {
               <li><strong className="text-foreground">Chrome Web Store Policies:</strong> Single purpose, transparent code, privacy policy</li>
             </ul>
             <p className="mt-4">
-              We only access publicly available U.S. visa appointment data and do not bypass any security measures 
-              or authentication systems. All data processing is conducted in accordance with applicable laws and regulations.
+              We only access publicly available U.S. visa appointment data. We don&apos;t access the portal on your behalf. 
+              All data processing is conducted in accordance with applicable laws and regulations.
             </p>
           </div>
         </Card>
@@ -289,7 +230,7 @@ export default function HowItWorksPage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="font-bold text-primary">3.</span>
-                <span>You receive instant notifications when slots become available</span>
+                <span>You receive alerts when community members share sightings: &quot;Last seen X minutes ago&quot;</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="font-bold text-primary">4.</span>

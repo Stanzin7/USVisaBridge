@@ -31,7 +31,7 @@ export default function AntiScamPage() {
         "Promising guaranteed appointments or visa approval",
         "Requiring government portal login credentials",
         "Demanding large upfront payments",
-        "Browser extensions that intercept API calls, capture screenshots, or access private data",
+        "Browser extensions that intercept API calls, automatically capture screenshots, or run code on the visa portal site",
         "Intercepting API calls or capturing screenshots",
         "Collecting data without explicit consent",
         "No privacy policy or terms of service",
