@@ -189,7 +189,7 @@ function ContactForm() {
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• We will delete all personal data within 30 days</li>
                 <li>• This includes your email, preferences, and alert settings</li>
-                <li>• Anonymized statistical data may be retained</li>
+                <li>• De-identified statistical data (with no personal identifiers) may be retained</li>
                 <li>• You can request deletion at any time</li>
               </ul>
             </Card>

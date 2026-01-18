@@ -143,6 +143,16 @@ export async function POST(request: NextRequest) {
     // Determine status (auto-verify if confidence >= 0.75)
     const status = shouldAutoVerify(confidence) ? "verified" : "pending";
 
+    // Calculate purge_at timestamp: 7 days from now by default
+    // If auto-verified or rejected, set to now (immediate deletion after processing)
+    const now = new Date();
+    const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const purgeAt = screenshotPath
+      ? status === "verified" || status === "rejected"
+        ? now.toISOString() // Delete immediately after verification/rejection
+        : sevenDaysFromNow.toISOString() // Delete after 7 days if pending
+      : null;
+
     // Insert report
     const insertResult = await adminSupabase
       .from("slot_reports")
@@ -155,6 +165,7 @@ export async function POST(request: NextRequest) {
         screenshot_path: screenshotPath,
         confidence,
         status,
+        purge_at: purgeAt,
       } as unknown as never)
       .select()
       .single();

@@ -224,6 +224,23 @@ export default function AntiScamPage() {
           </div>
         </Card>
 
+        {/* Security Research CTA */}
+        <Card className="p-8 mt-8 bg-gradient-to-br from-yellow-500/10 to-blue-500/10 border-yellow-500/20">
+          <div className="text-center space-y-4">
+            <Shield className="w-12 h-12 text-yellow-400 mx-auto" />
+            <h2 className="text-2xl font-bold">Security Research</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Interested in technical analysis of risky patterns in third-party visa appointment tools? 
+              Our security research provides educational insights into common security risks and how to protect yourself.
+            </p>
+            <Button variant="outline" asChild>
+              <Link href="/security-research">
+                Security Research →
+              </Link>
+            </Button>
+          </div>
+        </Card>
+
         {/* Contact */}
         <Card className="p-8 mt-8 bg-card border-border">
           <div className="text-center space-y-4">

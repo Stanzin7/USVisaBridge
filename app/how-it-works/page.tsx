@@ -27,6 +27,13 @@ export default function HowItWorksPage() {
   return (
     <main className="min-h-screen bg-background">
       <div className="container mx-auto max-w-5xl px-4 py-16">
+        {/* Not Affiliated Banner */}
+        <Card className="p-4 mb-8 bg-yellow-500/10 border-yellow-500/30 border">
+          <p className="text-sm text-center text-muted-foreground">
+            <strong className="text-foreground">USVisaBridge is not affiliated with the U.S. government.</strong> You book and submit forms yourself.
+          </p>
+        </Card>
+        
         <div className="text-center mb-12 space-y-4">
           <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 mb-4">
             How It Works
@@ -54,34 +61,44 @@ export default function HowItWorksPage() {
           </div>
         </Card>
 
-        {/* What We Monitor */}
+        {/* What We Use */}
         <Card className="p-8 mb-8 bg-card border-border">
           <div className="flex items-start gap-4 mb-6">
             <Eye className="w-8 h-8 text-emerald-400 shrink-0" />
             <div>
-              <h2 className="text-3xl font-bold mb-2">What We Monitor</h2>
+              <h2 className="text-3xl font-bold mb-2">What We Use (Community Data)</h2>
               <p className="text-muted-foreground">
-                We only access publicly available U.S. visa appointment data
+                Cropped screenshots of the appointment calendar that users upload voluntarily
               </p>
             </div>
           </div>
 
           <div className="space-y-4">
             <p className="text-muted-foreground">
-              We monitor publicly accessible information about U.S. visa appointment availability:
+              We extract only calendar information from user-uploaded screenshots:
             </p>
             <ul className="space-y-3">
-              {publicDataWeMonitor.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-muted-foreground">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
+              <li className="flex items-start gap-3 text-muted-foreground">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <span>Location (embassy/consulate)</span>
+              </li>
+              <li className="flex items-start gap-3 text-muted-foreground">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <span>Available date(s)</span>
+              </li>
+              <li className="flex items-start gap-3 text-muted-foreground">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <span>Timestamp (when screenshot was taken)</span>
+              </li>
+              <li className="flex items-start gap-3 text-muted-foreground">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <span>Confidence score (verification level)</span>
+              </li>
             </ul>
             <div className="p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/20 mt-4">
               <p className="text-sm text-muted-foreground">
-                <strong className="text-foreground">Important:</strong> All data we monitor is publicly available 
-                on U.S. embassy and consulate websites. We do not access any private or protected information.
+                <strong className="text-foreground">Important:</strong> We do not access your account, portal pages, or hidden APIs. 
+                We only process screenshots that you choose to upload voluntarily.
               </p>
             </div>
           </div>
@@ -136,13 +153,13 @@ export default function HowItWorksPage() {
 
           <div className="space-y-6">
             <div>
-              <h3 className="text-xl font-semibold mb-3">Data Flow</h3>
+              <h3 className="text-xl font-semibold mb-3">How It Works</h3>
               <ol className="space-y-3 text-muted-foreground ml-6 list-decimal">
-                <li>Users manually take screenshots and voluntarily upload them (manual, user-initiated)</li>
-                <li>Data is anonymized and verified (removes all personal information)</li>
-                <li>We extract structured data from screenshots (dates, location, visa type)</li>
-                <li>We analyze patterns and timing trends from community reports</li>
-                <li>When community members report sightings, users with matching preferences get alerts: &quot;Last seen X minutes ago&quot;</li>
+                <li>User sees calendar availability in their own portal</li>
+                <li>User optionally uploads cropped calendar-only screenshot</li>
+                <li>OCR extracts dates and location from screenshot</li>
+                <li>Admin or trust scoring verifies the report</li>
+                <li>Alerts go out as &quot;Last seen X minutes ago&quot; to users with matching preferences</li>
               </ol>
             </div>
           </div>
@@ -171,7 +188,7 @@ export default function HowItWorksPage() {
             </div>
             <div className="flex items-start gap-2">
               <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-              <span><strong className="text-foreground">Explicit Consent:</strong> We ask for your permission before collecting any data</span>
+              <span><strong className="text-foreground">Voluntary Uploads:</strong> You choose what to submit; uploads are voluntary. We don&apos;t collect portal data automatically</span>
             </div>
             <div className="flex items-start gap-2">
               <Globe className="w-5 h-5 text-primary shrink-0 mt-0.5" />
@@ -191,14 +208,14 @@ export default function HowItWorksPage() {
             <div>
               <h2 className="text-3xl font-bold mb-2">Legal Compliance</h2>
               <p className="text-muted-foreground">
-                We are fully compliant with all applicable privacy regulations
+                Designed with GDPR/CCPA principles (data minimization, deletion, access)
               </p>
             </div>
           </div>
 
           <div className="space-y-4 text-muted-foreground">
             <p>
-              Our U.S. visa appointment monitoring service is fully compliant with:
+              Our U.S. visa appointment monitoring service is designed with privacy principles from:
             </p>
             <ul className="space-y-2 ml-6 list-disc">
               <li><strong className="text-foreground">GDPR:</strong> European Union General Data Protection Regulation</li>
@@ -206,8 +223,8 @@ export default function HowItWorksPage() {
               <li><strong className="text-foreground">Chrome Web Store Policies:</strong> Single purpose, transparent code, privacy policy</li>
             </ul>
             <p className="mt-4">
-              We only access publicly available U.S. visa appointment data. We don&apos;t access the portal on your behalf. 
-              All data processing is conducted in accordance with applicable laws and regulations.
+              We rely on community sightings shared voluntarily through screenshots. We don&apos;t access the portal on your behalf or automatically collect data. 
+              All data processing follows data minimization, deletion rights, and access principles.
             </p>
           </div>
         </Card>
@@ -226,7 +243,7 @@ export default function HowItWorksPage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="font-bold text-primary">2.</span>
-                <span>We monitor publicly available U.S. visa appointment slots for you</span>
+                <span>We don&apos;t check the portal for you. Alerts are based on community sightings</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="font-bold text-primary">3.</span>

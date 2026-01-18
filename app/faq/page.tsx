@@ -14,7 +14,7 @@ export default function FAQPage() {
     {
       question: "How do you monitor visa slots?",
       answer:
-        "Community members voluntarily upload screenshots of the appointment calendar (manual, user-initiated). We extract availability data from these screenshots and analyze patterns. We never run code on the visa portal site, never automatically capture screenshots, and never intercept API calls. All uploads are manual and voluntary.",
+        "We notify you when community members upload a recent calendar screenshot showing availability. Community members voluntarily upload screenshots of the appointment calendar (manual, user-initiated). We extract availability data from these screenshots and analyze patterns. We never run code on the visa portal site, never automatically capture screenshots, and never intercept API calls. All uploads are manual and voluntary.",
     },
     {
       question: "Is the code really open source?",
@@ -34,12 +34,12 @@ export default function FAQPage() {
     {
       question: "How does the monitoring work without my credentials?",
       answer:
-        "We monitor publicly available U.S. visa appointment data from embassy websites. We check for open slots at regular intervals and notify you immediately when availability is detected. This method is safe, legal, and does not require any personal credentials.",
+        "We don&apos;t monitor your account. We rely on community sightings. You always book yourself. When community members share calendar screenshots showing availability, we notify users with matching preferences. This method is safe, legal, and does not require any personal credentials.",
     },
     {
       question: "Is this service affiliated with any government?",
       answer:
-        "No, we are an independent third-party monitoring service. We are not affiliated with, endorsed by, or connected to any government, embassy, or consulate. We simply monitor public U.S. visa appointment availability and send notifications.",
+        "No, we are an independent third-party monitoring service. We are not affiliated with, endorsed by, or connected to any government, embassy, or consulate. We alert users based on community sightings shared voluntarily through screenshots.",
     },
     {
       question: "What information do you collect?",
@@ -74,7 +74,7 @@ export default function FAQPage() {
     {
       question: "Is using this service legal?",
       answer:
-        "Yes. We only access publicly available information. We don&apos;t access the portal on your behalf or run any code on the visa portal site. Automation-free by design (manual uploads only). Users are responsible for following the portal&apos;s terms and local rules. We don&apos;t intercept APIs, automatically capture screenshots, or collect PII without consent.",
+        "Yes. We rely on community sightings shared voluntarily through screenshots. We don&apos;t access the portal on your behalf or run any code on the visa portal site. Automation-free by design (manual uploads only). Users are responsible for following the portal&apos;s terms and local rules. We don&apos;t intercept APIs, automatically capture screenshots, or collect PII without consent.",
     },
     {
       question: "How do I know this is not a scam?",

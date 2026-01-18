@@ -1,9 +1,15 @@
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Check, X, Shield, Lock, Eye, FileText, Calendar } from "lucide-react"
+import { Check, X, Shield, Lock, Eye, FileText, Calendar, AlertCircle, Globe, Clock } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | USVisaBridge",
+  description: "Privacy policy for USVisaBridge - Learn how we collect, use, and protect your data. Designed with GDPR/CCPA principles.",
+}
 
 export default function PrivacyPage() {
   // Full 10-row comparison table
@@ -12,7 +18,7 @@ export default function PrivacyPage() {
       feature: "Explicit Consent",
       us: true,
       competitors: false,
-      description: "We ask permission before collecting any data",
+      description: "We collect data only when you choose to provide it (signup, preferences, optional uploads)",
     },
     {
       feature: "Open Source",
@@ -21,10 +27,10 @@ export default function PrivacyPage() {
       description: "100% open source code for transparency",
     },
     {
-      feature: "No PII Collection",
+      feature: "Minimal PII",
       us: true,
       competitors: false,
-      description: "We never collect personally identifiable information",
+      description: "Email only (for login + alerts). No passport numbers, IDs, or documents",
     },
     {
       feature: "No API Interception",
@@ -33,10 +39,10 @@ export default function PrivacyPage() {
       description: "We don't intercept private API communications",
     },
     {
-      feature: "No Screenshot Capture",
+      feature: "No Automatic Screenshot Capture",
       us: true,
       competitors: false,
-      description: "We never capture screenshots of your data",
+      description: "We never automatically capture screenshots. Users may upload screenshots manually (optional)",
     },
     {
       feature: "No Credential Storage",
@@ -51,16 +57,10 @@ export default function PrivacyPage() {
       description: "100% free forever, no pricing tiers",
     },
     {
-      feature: "GDPR Compliant",
+      feature: "GDPR/CCPA Principles",
       us: true,
       competitors: false,
-      description: "Fully compliant with GDPR regulations",
-    },
-    {
-      feature: "CCPA Compliant",
-      us: true,
-      competitors: false,
-      description: "Fully compliant with CCPA regulations",
+      description: "Designed with GDPR/CCPA principles (data minimization, deletion, access)",
     },
     {
       feature: "Data Deletion",
@@ -84,6 +84,40 @@ export default function PrivacyPage() {
           </p>
         </div>
 
+        {/* TL;DR Box */}
+        <Card className="p-8 mb-8 bg-gradient-to-br from-blue-500/10 to-emerald-500/10 border-primary/20">
+          <div className="flex items-start gap-4 mb-4">
+            <AlertCircle className="w-6 h-6 text-primary shrink-0 mt-1" />
+            <h2 className="text-2xl font-bold">TL;DR</h2>
+          </div>
+          <ul className="space-y-3 text-muted-foreground">
+            <li className="flex items-start gap-2">
+              <Check className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+              <span><strong className="text-foreground">What we collect:</strong> Email, preferences, optional cropped calendar screenshots</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <X className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+              <span><strong className="text-foreground">What we never collect:</strong> Passport numbers, portal credentials, confirmation pages</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <FileText className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <span><strong className="text-foreground">Screenshot handling:</strong> Calendar-only; user-initiated upload; retention rule</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <span><strong className="text-foreground">Retention rule:</strong> Delete raw screenshots after verification or within 7 days, whichever is sooner; rejected deleted promptly</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Shield className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <span><strong className="text-foreground">What we keep:</strong> Extracted availability fields + minimal moderation logs</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Lock className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <span><strong className="text-foreground">User rights:</strong> Delete/export your data at any time</span>
+            </li>
+          </ul>
+        </Card>
+
         {/* Introduction */}
         <Card className="p-8 mb-8 bg-card border-border">
           <div className="space-y-4">
@@ -99,12 +133,12 @@ export default function PrivacyPage() {
           </div>
         </Card>
 
-        {/* Full Comparison Table */}
+        {/* How We're Different */}
         <Card className="p-8 mb-8 bg-card border-border">
           <div className="mb-6">
-            <h2 className="text-3xl font-bold mb-2">Us vs. Competitors</h2>
+            <h2 className="text-3xl font-bold mb-2">How We&apos;re Different</h2>
             <p className="text-muted-foreground">
-              Complete comparison with high-risk, non-transparent alternatives
+              Our approach compared to high-risk patterns common in some tools
             </p>
           </div>
           <div className="overflow-x-auto">
@@ -112,8 +146,8 @@ export default function PrivacyPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[250px]">Feature</TableHead>
-                  <TableHead className="text-center">Us (Legal & Transparent)</TableHead>
-                  <TableHead className="text-center">Competitors (High-risk / Non-transparent)</TableHead>
+                  <TableHead className="text-center">USVisaBridge</TableHead>
+                  <TableHead className="text-center">High-risk patterns (common in some tools)</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -138,15 +172,9 @@ export default function PrivacyPage() {
                     </TableCell>
                     <TableCell className="text-center">
                       {row.competitors ? (
-                        <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
-                          <Check className="w-3 h-3 mr-1" />
-                          Yes
-                        </Badge>
+                        <span className="text-xs text-muted-foreground">Some tools may do this</span>
                       ) : (
-                        <Badge variant="secondary" className="bg-red-500/10 text-red-400 border-red-500/20">
-                          <X className="w-3 h-3 mr-1" />
-                          No
-                        </Badge>
+                        <span className="text-xs text-muted-foreground">We do not do this</span>
                       )}
                     </TableCell>
                   </TableRow>
@@ -250,6 +278,37 @@ export default function PrivacyPage() {
           </div>
         </Card>
 
+        {/* Screenshots */}
+        <Card className="p-8 mb-8 bg-card border-border">
+          <div className="flex items-start gap-4 mb-6">
+            <FileText className="w-8 h-8 text-primary shrink-0" />
+            <div>
+              <h2 className="text-3xl font-bold mb-2">Screenshots</h2>
+              <p className="text-muted-foreground">
+                How we handle user-uploaded calendar screenshots
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4 text-muted-foreground">
+            <p>
+              <strong className="text-foreground">Screenshots (calendar-only) are optional and must be cropped to the appointment calendar only.</strong> Uploads should contain only the appointment calendar area.
+            </p>
+            <p>
+              <strong className="text-foreground">We use screenshots to extract availability data and verify community reports.</strong> Uploads that contain personal identifiers (names, emails, confirmation numbers, passport numbers, barcodes, or receipts) may be rejected.
+            </p>
+            <p>
+              <strong className="text-foreground">Retention:</strong> We delete raw screenshots after verification or within 7 days of upload (whichever is sooner). If a screenshot is rejected, we delete it promptly. You can request deletion of your uploaded screenshots at any time.
+            </p>
+            <p>
+              <strong className="text-foreground">What we keep:</strong> Extracted availability fields (location, date range, timestamp, confidence) and minimal moderation logs for abuse prevention. No passports, confirmation pages, or visa portal credentials are stored.
+            </p>
+            <p>
+              All screenshots are stored using industry-standard encryption and security measures. Only admins reviewing reports can access screenshots during the retention period.
+            </p>
+          </div>
+        </Card>
+
         {/* Data Storage and Retention */}
         <Card className="p-8 mb-8 bg-card border-border">
           <div className="flex items-start gap-4 mb-6">
@@ -264,16 +323,101 @@ export default function PrivacyPage() {
 
           <div className="space-y-4 text-muted-foreground">
             <p>
-              We store your email address and U.S. visa preferences for as long as your alert is active. 
+              <strong className="text-foreground">Email & Preferences:</strong> We store your email address and U.S. visa preferences for as long as your alert is active. 
               If you delete your account or request data deletion, we will permanently remove 
               all your personal information within 30 days.
             </p>
             <p>
-              Anonymized U.S. visa appointment availability data (with no personal identifiers) may be retained 
-              for statistical purposes to improve the service.
+              <strong className="text-foreground">Extracted Data:</strong> Extracted availability fields (location, date range, timestamp, confidence) with no personal identifiers may be retained 
+              for statistical purposes to improve the service. Raw screenshots are deleted according to our retention policy.
+            </p>
+            <p>
+              <strong className="text-foreground">Export Format:</strong> Data export requests will be provided in JSON or CSV format within 30 days.
             </p>
             <p>
               All data is stored using industry-standard encryption and security measures.
+            </p>
+          </div>
+        </Card>
+
+        {/* Security & Abuse Prevention Logs */}
+        <Card className="p-8 mb-8 bg-card border-border">
+          <div className="flex items-start gap-4 mb-6">
+            <Shield className="w-8 h-8 text-primary shrink-0" />
+            <div>
+              <h2 className="text-3xl font-bold mb-2">Security & Abuse Prevention Logs</h2>
+              <p className="text-muted-foreground">
+                Minimal logging for security and abuse prevention
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4 text-muted-foreground">
+            <p>
+              We maintain minimal logs for security and abuse prevention purposes. These logs may include:
+            </p>
+            <ul className="space-y-2 ml-6 list-disc">
+              <li>IP addresses (anonymized/hashed) for rate limiting and abuse detection</li>
+              <li>Timestamps of actions for security monitoring</li>
+              <li>Minimal moderation logs for abuse prevention (no personal identifiers)</li>
+            </ul>
+            <p>
+              These logs are retained only as long as necessary for security purposes and are not used for tracking or analytics.
+            </p>
+          </div>
+        </Card>
+
+        {/* Where Data is Processed */}
+        <Card className="p-8 mb-8 bg-card border-border">
+          <div className="flex items-start gap-4 mb-6">
+            <Globe className="w-8 h-8 text-primary shrink-0" />
+            <div>
+              <h2 className="text-3xl font-bold mb-2">Where Data is Processed</h2>
+              <p className="text-muted-foreground">
+                Information about data processing locations
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4 text-muted-foreground">
+            <p>
+              Our service uses third-party service providers for hosting and data storage. Data may be processed in the United States and other jurisdictions where our service providers operate.
+            </p>
+            <p>
+              We use Supabase for database hosting and Vercel for application hosting. These providers maintain industry-standard security measures and compliance certifications.
+            </p>
+            <p>
+              By using our service, you acknowledge that your data may be transferred to and processed in jurisdictions outside your country of residence.
+            </p>
+          </div>
+        </Card>
+
+        {/* Changes to This Policy */}
+        <Card className="p-8 mb-8 bg-card border-border">
+          <div className="flex items-start gap-4 mb-6">
+            <Clock className="w-8 h-8 text-primary shrink-0" />
+            <div>
+              <h2 className="text-3xl font-bold mb-2">Changes to This Policy</h2>
+              <p className="text-muted-foreground">
+                How we communicate policy updates
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4 text-muted-foreground">
+            <p>
+              We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons.
+            </p>
+            <p>
+              When we make material changes to this policy, we will:
+            </p>
+            <ul className="space-y-2 ml-6 list-disc">
+              <li>Update the &quot;Last updated&quot; date at the top of this page</li>
+              <li>Notify users via email if you have an active account</li>
+              <li>Post a notice on our website for significant changes</li>
+            </ul>
+            <p>
+              Your continued use of our service after any changes indicates your acceptance of the updated Privacy Policy.
             </p>
           </div>
         </Card>
@@ -335,20 +479,19 @@ export default function PrivacyPage() {
         <Card className="p-8 mb-8 bg-gradient-to-br from-blue-500/5 to-emerald-500/5 border-primary/20">
           <div className="text-center space-y-6">
             <Shield className="w-12 h-12 text-primary mx-auto" />
-            <h2 className="text-3xl font-bold">GDPR & CCPA Compliant</h2>
+            <h2 className="text-3xl font-bold">Designed with GDPR/CCPA Principles</h2>
             <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              We are fully compliant with the European Union&apos;s General Data Protection Regulation (GDPR) 
-              and the California Consumer Privacy Act (CCPA). All data processing for U.S. visa appointment 
-              monitoring is conducted in accordance with these regulations.
+              Our U.S. visa appointment monitoring service is designed with privacy principles from the European Union&apos;s General Data Protection Regulation (GDPR) 
+              and the California Consumer Privacy Act (CCPA). We implement data minimization, access rights, and deletion rights in our data processing.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
               <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
                 <Check className="w-3 h-3 mr-1" />
-                GDPR Compliant
+                GDPR Principles
               </Badge>
               <Badge variant="secondary" className="bg-blue-500/10 text-blue-400 border-blue-500/20">
                 <Check className="w-3 h-3 mr-1" />
-                CCPA Compliant
+                CCPA Principles
               </Badge>
               <Badge variant="secondary" className="bg-purple-500/10 text-purple-400 border-purple-500/20">
                 <Check className="w-3 h-3 mr-1" />
