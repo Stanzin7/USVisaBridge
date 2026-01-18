@@ -1,0 +1,8 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python version–specific caches
+**/__pycache__/**

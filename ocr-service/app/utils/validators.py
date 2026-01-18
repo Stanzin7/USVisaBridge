@@ -16,15 +16,31 @@ def validate_file(file: UploadFile):
 
 
 def validate_visa_screenshot(raw_text: str, lines: list[str]) -> bool:
-    keywords = ["appointment", "ofc", "visa", "interview", "available", "schedule"]
-
     text = raw_text.lower()
-    keyword_hits = sum(1 for k in keywords if k in text)
 
-    has_location = any(l.isupper() and 5 < len(l) < 30 for l in lines)
-    has_date = any("20" in l and "," in l for l in lines)
+    keyword_groups = {
+        "context": ["appointment", "schedule", "ofc", "interview"],
+        "calendar": ["monday", "tuesday", "wednesday", "thursday",
+                     "friday", "saturday", "sunday"],
+        "availability": ["available", "time", "date"]
+    }
 
-    return keyword_hits >= 2 and has_location and has_date
+    hits = 0
+    for group in keyword_groups.values():
+        if any(k in text for k in group):
+            hits += 1
+
+    # Strong date signal
+    has_full_date = any(
+        "," in l and any(m in l.lower() for m in [
+            "january", "february", "march", "april", "may", "june",
+            "july", "august", "september", "october", "november", "december"
+        ])
+        for l in lines
+    )
+
+    return hits >= 2 and has_full_date
+
 
 
 

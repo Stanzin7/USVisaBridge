@@ -1,7 +1,20 @@
 fastapi
-uvicorn
+uvicorn[standard]
+
+# OCR / ML
 torch
 transformers
 pillow
 opencv-python
+
+# File upload
 python-multipart
+
+# Environment variables
+python-dotenv
+
+# Supabase
+supabase
+cachetools
+
+

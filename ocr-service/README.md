@@ -128,3 +128,19 @@ uvicorn app.main:app --reload
 # Docker (Production-Safe)
 Build & run
 docker compose up --build
+# This system uses OAuth 2.0 login with 
+# Google Microsoft, and Yahoo.
+Passwords are never handled by our application.
+The provider verifies user identity and issues a signed token, which is validated on the backend before creating a session.
+
+Browser
+  ↓
+Next.js + NextAuth
+  ↓ (OAuth handled here)
+Google / Microsoft / Yahoo
+  ↓
+NextAuth gets user profile
+  ↓
+NextAuth calls FastAPI backend
+  ↓
+FastAPI issues JWT (your app token)
