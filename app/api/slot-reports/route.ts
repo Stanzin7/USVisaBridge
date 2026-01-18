@@ -100,8 +100,8 @@ export async function POST(request: NextRequest) {
     // Upload screenshot if present
     let screenshotPath: string | null = null;
     if (screenshot && screenshot.size > 0) {
-      const fileExt = screenshot.name.split(".").pop();
-      const fileName = `${user.id}/${Date.now()}.${fileExt}`;
+      const fileExtension = screenshot.name.split(".").pop();
+      const fileName = `${user.id}/${Date.now()}.${fileExtension}`;
 
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("screenshots")

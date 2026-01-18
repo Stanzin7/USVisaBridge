@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 /**
  * POST /api/v1/slots
- * Submit slot data from extension
+ * Submit slot data
  * Requires JWT authentication
  */
 export async function POST(request: NextRequest) {
@@ -33,8 +33,6 @@ export async function POST(request: NextRequest) {
     }
 
     // Store slot submission
-    // Note: This is extension-specific data, might need a separate table
-    // For now, we'll track it in a simple way
     const adminSupabase = createAdminClient();
 
     // You can create a slot_submissions table or use existing slot_reports
@@ -43,17 +41,6 @@ export async function POST(request: NextRequest) {
     // 1. Store raw slot data
     // 2. Process and aggregate
     // 3. Update slot_availability table
-
-    // Track extension usage
-    const extensionVersion = request.headers.get("X-Extension-Version") || "unknown";
-    await adminSupabase.from("extension_sessions").upsert({
-      user_id: user.id,
-      extension_id: "chrome-extension",
-      extension_version: extensionVersion,
-      last_used_at: new Date().toISOString(),
-    }, {
-      onConflict: "user_id"
-    });
 
     // Return success
     return NextResponse.json({

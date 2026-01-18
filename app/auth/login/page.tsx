@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 
 export default function LoginPage() {
@@ -11,8 +11,6 @@ export default function LoginPage() {
   const [oauthLoading, setOauthLoading] = useState(false)
   const [message, setMessage] = useState('')
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const extensionId = searchParams.get('extensionId')
 
   // Get redirect URL based on current origin (works in dev, tunnel, and prod)
   // Uses window.location.origin which automatically adapts to localhost, tunnel, or production
@@ -22,11 +20,7 @@ export default function LoginPage() {
       ? window.location.origin 
       : 'http://localhost:3000'
     
-    if (extensionId) {
-      return `${origin}/auth/callback/extension?extensionId=${encodeURIComponent(extensionId)}`
-    } else {
-      return `${origin}/auth/callback`
-    }
+    return `${origin}/auth/callback`
   }
 
   const handleEmailLogin = async (e: React.FormEvent) => {
@@ -79,14 +73,8 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto mt-12">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow">
         <h1 className="text-2xl font-bold mb-6">
-          {extensionId ? 'Connect Extension' : 'Sign In'}
+          Sign In
         </h1>
-        
-        {extensionId && (
-          <p className="text-sm text-muted-foreground mb-6">
-            Sign in to connect your USVisaBridge account to the extension.
-          </p>
-        )}
 
         {/* Google OAuth Button */}
         <Button

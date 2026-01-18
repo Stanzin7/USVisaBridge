@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 /**
  * GET /api/v1/validate
  * Validate JWT token
- * Used by extension to check if user is authenticated
+ * Used to check if user is authenticated
  */
 export async function GET(request: NextRequest) {
   try {

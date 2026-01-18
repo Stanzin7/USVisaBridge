@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Transform data for extension
+    // Transform data for API response
     const slots = (reports || []).map((report) => ({
       location: report.consulate,
       visaType: report.visa_type,
