@@ -14,7 +14,7 @@ export function HowWeAreDifferentSection() {
     {
       icon: Eye,
       title: "We don&apos;t capture screenshots",
-      description: "We never capture screenshots of your personal information. We only collect anonymized slot availability data.",
+      description: "We never capture screenshots of your personal information. We only collect de-identified slot availability data (personal identifiers removed).",
       color: "text-blue-400",
       bgColor: "bg-blue-500/10",
     },

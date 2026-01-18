@@ -7,6 +7,7 @@ import { slotReportSchema } from "@/lib/validators";
 import { rateLimit } from "@/lib/rateLimit";
 import { getCurrentUser } from "@/lib/auth";
 import { calculateConfidence, shouldAutoVerify } from "@/lib/scoring";
+import { validateAndProcessImage, fileToBuffer } from "@/lib/uploadGuardrails";
 
 export const dynamic = "force-dynamic";
 
@@ -59,22 +60,6 @@ export async function POST(request: NextRequest) {
     const earliestDate = formData.get("earliest_date") as string;
     const latestDate = formData.get("latest_date") as string | null;
 
-    // Validate file if present
-    if (screenshot && screenshot.size > 0) {
-      if (screenshot.size > MAX_FILE_SIZE) {
-        return NextResponse.json(
-          { error: "Screenshot must be less than 2MB" },
-          { status: 400 }
-        );
-      }
-      if (!ALLOWED_FILE_TYPES.includes(screenshot.type)) {
-        return NextResponse.json(
-          { error: "Screenshot must be PNG or JPEG" },
-          { status: 400 }
-        );
-      }
-    }
-
     // Validate report data
     const validation = slotReportSchema.safeParse({
       consulate,
@@ -93,16 +78,83 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
     const adminSupabase = createAdminClient();
 
-    // Upload screenshot if present
+    // Process screenshot with guardrails if present
     let screenshotPath: string | null = null;
+    let imageHash: string | null = null;
+
     if (screenshot && screenshot.size > 0) {
-      const fileExtension = screenshot.name.split(".").pop();
+      // Basic file validation
+      if (screenshot.size > MAX_FILE_SIZE) {
+        return NextResponse.json(
+          { error: "Screenshot must be less than 2MB" },
+          { status: 400 }
+        );
+      }
+      if (!ALLOWED_FILE_TYPES.includes(screenshot.type)) {
+        return NextResponse.json(
+          { error: "Screenshot must be PNG or JPEG" },
+          { status: 400 }
+        );
+      }
+
+      // Convert to buffer for processing
+      const imageBuffer = await fileToBuffer(screenshot);
+
+      // Call OCR to get text for PII detection (optional - guardrails work without it)
+      let ocrText: string | undefined;
+      try {
+        const ocrFormData = new FormData();
+        ocrFormData.append("file", screenshot);
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+          (request.headers.get("host") ? `http://${request.headers.get("host")}` : "http://localhost:3000");
+        const ocrResponse = await fetch(`${baseUrl}/api/ocr`, {
+          method: "POST",
+          body: ocrFormData,
+        });
+        // Note: OCR service may not return raw text in response
+        // For now, we rely on dimension checks for PII detection
+      } catch (ocrError) {
+        console.error("[API] OCR call failed (continuing without OCR text):", ocrError);
+        // Continue without OCR text - guardrails will still check dimensions
+      }
+
+      // Run guardrails
+      const guardrailResult = await validateAndProcessImage(
+        imageBuffer,
+        ocrText
+      );
+
+      if (!guardrailResult.passed) {
+        // Rejected - return error to user, don't store image
+        return NextResponse.json(
+          { error: guardrailResult.reason || "Image failed validation checks. Please crop tighter to calendar only." },
+          { status: 400 }
+        );
+      }
+
+      // Passed - use processed image buffer
+      if (!guardrailResult.processedImageBuffer || !guardrailResult.imageHash) {
+        return NextResponse.json(
+          { error: "Failed to process image" },
+          { status: 500 }
+        );
+      }
+
+      imageHash = guardrailResult.imageHash;
+      const processedFile = new File(
+        [guardrailResult.processedImageBuffer],
+        "processed-screenshot.jpg",
+        { type: "image/jpeg" }
+      );
+
+      // Upload processed image
+      const fileExtension = "jpg";
       const fileName = `${user.id}/${Date.now()}.${fileExtension}`;
 
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("screenshots")
-        .upload(fileName, screenshot, {
-          contentType: screenshot.type,
+        .upload(fileName, processedFile, {
+          contentType: "image/jpeg",
         });
 
       if (uploadError) {

@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Upload, Loader2, CheckCircle2, AlertCircle, X } from 'lucide-react'
+import { ImageCrop } from '@/components/ImageCrop'
 
 // OCR Service URL - can be moved to env variable later
 const OCR_SERVICE_URL = '/api/ocr'
@@ -25,6 +26,8 @@ export default function ReportsPage() {
   })
   const [screenshot, setScreenshot] = useState<File | null>(null)
   const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null)
+  const [showCrop, setShowCrop] = useState(false)
+  const [originalImageSrc, setOriginalImageSrc] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [ocrProcessing, setOcrProcessing] = useState(false)
   const [message, setMessage] = useState('')
@@ -130,15 +133,56 @@ const processOCR = async (file: File) => {
   }
 }
 
- const handleFileSelect = async (file: File) => {
-  setScreenshot(file)
+  const handleFileSelect = (file: File) => {
+    // Validate file type
+    if (!file.type.match(/^image\/(png|jpeg|jpg)$/)) {
+      setMessage('Error: Please upload a PNG or JPEG image')
+      return
+    }
 
-  const reader = new FileReader()
-  reader.onloadend = () => setScreenshotPreview(reader.result as string)
-  reader.readAsDataURL(file)
+    // Validate file size (before crop, allow up to 10MB for original)
+    const maxOriginalSize = 10 * 1024 * 1024 // 10MB
+    if (file.size > maxOriginalSize) {
+      setMessage('Error: Image is too large. Please use a smaller image.')
+      return
+    }
 
-  await processOCR(file) 
-}
+    // Show crop UI instead of immediately processing
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      const imageSrc = reader.result as string
+      setOriginalImageSrc(imageSrc)
+      setShowCrop(true)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const handleCropComplete = async (croppedBlob: Blob) => {
+    // Create a File object from the cropped blob
+    const croppedFile = new File([croppedBlob], 'cropped-screenshot.jpg', {
+      type: 'image/jpeg',
+    })
+
+    setScreenshot(croppedFile)
+    setShowCrop(false)
+    setOriginalImageSrc(null)
+
+    // Create preview
+    const reader = new FileReader()
+    reader.onloadend = () => setScreenshotPreview(reader.result as string)
+    reader.readAsDataURL(croppedFile)
+
+    // Process OCR on cropped image
+    await processOCR(croppedFile)
+  }
+
+  const handleCropCancel = () => {
+    setShowCrop(false)
+    setOriginalImageSrc(null)
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
 
 
   const handleDrag = (e: React.DragEvent) => {
@@ -168,15 +212,17 @@ const processOCR = async (file: File) => {
     }
   }
 
-const removeScreenshot = () => {
-  setScreenshot(null)
-  setScreenshotPreview(null)
-  setOcrResult(null)
-  setMessage('')
-  if (fileInputRef.current) {
-    fileInputRef.current.value = ''
+  const removeScreenshot = () => {
+    setScreenshot(null)
+    setScreenshotPreview(null)
+    setOcrResult(null)
+    setMessage('')
+    setShowCrop(false)
+    setOriginalImageSrc(null)
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
   }
-}
 
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -260,7 +306,7 @@ const removeScreenshot = () => {
                 <strong>Upload ONLY the calendar area.</strong> Do not include names, emails, confirmation pages, passport numbers, barcodes, or receipts.
               </p>
               <p>
-                Uploads containing personal identifiers may be rejected. Crop your screenshot to show only the appointment calendar.
+                Uploads that are too large (over 1400x900px or 1.5MP) or contain detected personal identifiers will be rejected. Please crop tighter to calendar only.
               </p>
             </div>
           </div>
@@ -272,9 +318,15 @@ const removeScreenshot = () => {
           {/* Screenshot Upload Section */}
           <div>
             <label className="block text-sm font-semibold mb-3">
-              Screenshot (Recommended)
+              Screenshot (Required - Must be cropped)
             </label>
-            {!screenshot ? (
+            {showCrop && originalImageSrc ? (
+              <ImageCrop
+                imageSrc={originalImageSrc}
+                onCropComplete={handleCropComplete}
+                onCancel={handleCropCancel}
+              />
+            ) : !screenshot ? (
               <div
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
