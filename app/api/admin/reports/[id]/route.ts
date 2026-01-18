@@ -77,10 +77,16 @@ export async function POST(
 
     const typedDecision = decision as ReportDecision;
 
-    // Update report
+    // Set purge_at to now() when verified or rejected (immediate deletion)
+    const now = new Date().toISOString();
+
+    // Update report with status and purge_at
     const updateResult = await adminSupabase
       .from("slot_reports")
-      .update({ status: typedDecision } as unknown as never)
+      .update({
+        status: typedDecision,
+        purge_at: now, // Delete screenshot immediately after verification/rejection
+      } as unknown as never)
       .eq("id", params.id)
       .select()
       .single();

@@ -109,7 +109,7 @@ export default function AdminReportsPage() {
                     {report.visa_type} - {report.consulate}
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Reported by: {report.profiles?.email || "Unknown"}
+                    Reported by: user
                   </p>
                   <p className="text-sm text-gray-500">
                     {new Date(report.created_at).toLocaleString()}

@@ -230,6 +230,11 @@ const removeScreenshot = () => {
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-8">
+      <Card className="p-4 mb-6 bg-blue-500/10 border-blue-500/30">
+        <p className="text-sm text-center text-muted-foreground">
+          <strong className="text-foreground">USVisaBridge is not affiliated with the U.S. government.</strong> You book and submit forms yourself.
+        </p>
+      </Card>
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Submit Slot Report</h1>
         <p className="text-muted-foreground text-lg">
@@ -237,7 +242,7 @@ const removeScreenshot = () => {
         </p>
       </div>
 
-      <div className="mb-6">
+      <div className="mb-6 space-y-4">
         <Card className="p-4 bg-yellow-500/10 border-yellow-500/30">
           <div className="flex items-start gap-3">
             <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5 shrink-0" />
@@ -245,6 +250,19 @@ const removeScreenshot = () => {
               <strong>Note:</strong> Please only submit reports for slots you have personally verified. 
               False reports may result in account restrictions.
             </p>
+          </div>
+        </Card>
+        <Card className="p-4 bg-red-500/10 border-red-500/30">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 shrink-0" />
+            <div className="space-y-2 text-sm text-red-700 dark:text-red-300">
+              <p>
+                <strong>Upload ONLY the calendar area.</strong> Do not include names, emails, confirmation pages, passport numbers, barcodes, or receipts.
+              </p>
+              <p>
+                Uploads containing personal identifiers may be rejected. Crop your screenshot to show only the appointment calendar.
+              </p>
+            </div>
           </div>
         </Card>
       </div>
@@ -288,6 +306,9 @@ const removeScreenshot = () => {
                 </p>
                 <p className="text-xs text-muted-foreground">
                   PNG or JPEG, max 2MB. We'll extract form data automatically.
+                </p>
+                <p className="text-xs text-red-600 dark:text-red-400 mt-2 font-medium">
+                  ⚠ Crop to calendar area only. No names, emails, or personal info.
                 </p>
               </div>
             ) : (

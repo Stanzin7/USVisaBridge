@@ -49,6 +49,9 @@ export default async function Home() {
               Check less. Waste fewer logins. Get alerted when the community just saw availability. 
               Use your limited portal checks only when there&apos;s fresh proof.
             </p>
+            <p className="text-sm text-muted-foreground mt-4 max-w-2xl mx-auto">
+              We don&apos;t check the portal for you. Alerts are based on community sightings.
+            </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button
@@ -325,9 +328,9 @@ export default async function Home() {
                   <CheckCircle2 className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">We only read what you can already see</h3>
+                  <h3 className="text-lg font-semibold mb-2">We only process what you choose to upload</h3>
                   <p className="text-muted-foreground">
-                    We check appointment availability that appears on your screen. We don&apos;t access hidden account data.
+                    We only process the screenshot you choose to upload (cropped calendar only). We don&apos;t access your account, portal pages, or hidden APIs.
                   </p>
                 </div>
               </div>
