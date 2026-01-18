@@ -12,7 +12,7 @@ app = FastAPI(title="Visa-Grade OCR Backend")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # restrict in prod
+    allow_origins=["*"],  
     allow_methods=["*"],
     allow_headers=["*"],
 )
