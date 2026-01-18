@@ -24,8 +24,7 @@ async def ocr_endpoint(file: UploadFile = File(...)):
 
     data = extract_visa_data(lines)
 
-
-    # 🔒 Visa screenshot validation
+    # Visa screenshot validation
     if not validate_visa_screenshot(raw_text, lines):
         return {
             "success": False,

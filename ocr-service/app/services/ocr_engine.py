@@ -18,7 +18,7 @@ def run_ocr(image: Image.Image) -> str:
     if not result:
         return ""
 
-    # ✅ CASE 1: PP-OCRv5 / PaddleX dict output
+    # PP-OCRv5 / PaddleX dict output
     if isinstance(result[0], dict) and "rec_texts" in result[0]:
         texts = [
             t.strip()
@@ -27,7 +27,7 @@ def run_ocr(image: Image.Image) -> str:
         ]
         return "\n".join(texts)
 
-    # ✅ CASE 2: Legacy PaddleOCR output
+    # Legacy PaddleOCR output
     texts = []
     for item in result[0]:
         try:

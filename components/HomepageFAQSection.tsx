@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export function HomepageFAQSection() {
-  // Top 5 most important FAQs (homepage version)
   const topFAQs = [
     {
       question: "How is this different from other visa slot trackers?",

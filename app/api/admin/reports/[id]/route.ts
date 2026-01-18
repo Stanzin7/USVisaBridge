@@ -6,10 +6,6 @@ import { getCurrentUser, isAdmin } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
-/* -------------------------------------------------------------------------- */
-/*                                   TYPES                                    */
-/* -------------------------------------------------------------------------- */
-
 type Profile = {
   id: string;
   email: string | null;
@@ -32,24 +28,20 @@ type AuthResult = {
   error: Error | null;
 };
 
-/* -------------------------------------------------------------------------- */
-/*                                   HANDLER                                  */
-/* -------------------------------------------------------------------------- */
-
 // POST: Approve or reject a report
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
 ): Promise<NextResponse<{ data?: SlotReport; error?: string }>> {
   try {
-    /* ------------------------------ Auth check ------------------------------ */
+    // Auth check
     const { user, error: authError } = (await getCurrentUser()) as AuthResult;
 
     if (authError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    /* ----------------------------- Admin check ----------------------------- */
+    // Admin check
     const adminSupabase = createAdminClient();
 
     const {
@@ -72,7 +64,7 @@ export async function POST(
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    /* ------------------------------ Request body ----------------------------- */
+    // Request body
     const body = await request.json();
     const { decision, reason_codes } = body;
 
@@ -85,7 +77,7 @@ export async function POST(
 
     const typedDecision = decision as ReportDecision;
 
-    /* ------------------------------ Update report ----------------------------- */
+    // Update report
     const updateResult = await adminSupabase
       .from("slot_reports")
       .update({ status: typedDecision } as unknown as never)
@@ -112,7 +104,7 @@ export async function POST(
       return NextResponse.json({ error: "Report not found" }, { status: 404 });
     }
 
-    /* ------------------------- Create verification record ------------------------ */
+    // Create verification record
     const { error: verificationError } = await adminSupabase
       .from("report_verification")
       .insert({
@@ -129,7 +121,7 @@ export async function POST(
       );
     }
 
-    /* ----------------------------- Create audit event ---------------------------- */
+    // Create audit event
     await adminSupabase.from("audit_events").insert({
       actor_id: user.id,
       action: `report_${typedDecision}`,

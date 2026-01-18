@@ -7,10 +7,6 @@ import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
-/* -------------------------------------------------------------------------- */
-/*                                   TYPES                                    */
-/* -------------------------------------------------------------------------- */
-
 type SlotReport = {
   id: string;
   reporter_id: string | null;

@@ -6,10 +6,6 @@ import { getCurrentUser, isAdmin } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
-/* -------------------------------------------------------------------------- */
-/*                                   TYPES                                    */
-/* -------------------------------------------------------------------------- */
-
 type Profile = {
   id: string;
   email: string | null;
@@ -39,22 +35,18 @@ type AuthResult = {
   error: Error | null;
 };
 
-/* -------------------------------------------------------------------------- */
-/*                                   HANDLER                                  */
-/* -------------------------------------------------------------------------- */
-
 export async function GET(
   request: NextRequest
-): Promise<NextResponse<{ data?: SlotReportWithReporter[]; error?: string }>> {
+  ): Promise<NextResponse<{ data?: SlotReportWithReporter[]; error?: string }>> {
   try {
-    /* ------------------------------ Auth check ------------------------------ */
+    // Auth check
     const { user, error: authError } = (await getCurrentUser()) as AuthResult;
 
     if (authError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    /* ----------------------------- Admin check ----------------------------- */
+    // Admin check
     const adminSupabase = createAdminClient();
 
     const {
@@ -77,7 +69,7 @@ export async function GET(
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    /* ------------------------------ Query params ----------------------------- */
+    // Query params
     const { searchParams } = new URL(request.url);
 
     const status =
@@ -87,7 +79,7 @@ export async function GET(
       ? 50
       : Math.min(Number(searchParams.get("limit")), 100);
 
-    /* ------------------------------ Data fetch ------------------------------ */
+    // Data fetch
     const {
       data,
       error,
