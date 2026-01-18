@@ -191,7 +191,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-3xl font-bold mb-2">Information We Collect</h2>
               <p className="text-muted-foreground">
-                We collect minimal information necessary to provide our U.S. visa appointment monitoring service
+                We collect minimal information necessary to provide alerts based on community-reported availability sightings
               </p>
             </div>
           </div>
@@ -202,7 +202,7 @@ export default function PrivacyPage() {
               <ul className="space-y-2 text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong className="text-foreground">Email Address:</strong> Used only to send you U.S. visa appointment availability notifications</span>
+                  <span><strong className="text-foreground">Email Address:</strong> Used only to send you alerts based on community-reported availability sightings</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
@@ -236,7 +236,7 @@ export default function PrivacyPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <X className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-                  <span>Screenshots of your personal information</span>
+                  <span>We do not request or intentionally collect screenshots containing personal information. Calendar-only uploads are optional and will be rejected if they exceed size limits or contain detected personal identifiers.</span>
                 </li>
               </ul>
             </div>
@@ -250,7 +250,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-3xl font-bold mb-2">How We Use Your Information</h2>
               <p className="text-muted-foreground">
-                We use your information only for U.S. visa appointment monitoring
+                We use your information only to provide alerts based on community-reported availability sightings
               </p>
             </div>
           </div>
@@ -258,11 +258,11 @@ export default function PrivacyPage() {
           <ul className="space-y-3 text-muted-foreground">
             <li className="flex items-start gap-2">
               <Check className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-              <span><strong className="text-foreground">Send Notifications:</strong> To alert you when U.S. visa appointment slots become available based on your preferences</span>
+              <span><strong className="text-foreground">Send Notifications:</strong> To alert you when community-reported availability sightings match your preferences</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-              <span><strong className="text-foreground">Improve Service:</strong> To analyze anonymous usage patterns and improve our U.S. visa appointment monitoring service (no personal data included)</span>
+              <span><strong className="text-foreground">Improve Service:</strong> To analyze aggregated usage metrics (de-identified where possible) and improve our service. Minimal logs may include IP addresses (pseudonymized via hashing), timestamps, and action types.</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
@@ -273,7 +273,7 @@ export default function PrivacyPage() {
           <div className="mt-6 p-4 bg-muted/50 rounded-lg">
             <p className="text-sm text-muted-foreground">
               <strong className="text-foreground">We never:</strong> Sell your data, share it with third parties for marketing, 
-              or use it for any purpose other than providing the U.S. visa appointment monitoring service.
+              or use it for any purpose other than providing alerts based on community-reported availability sightings.
             </p>
           </div>
         </Card>
@@ -295,7 +295,7 @@ export default function PrivacyPage() {
               <strong className="text-foreground">Screenshots (calendar-only) are optional and must be cropped to the appointment calendar only.</strong> Uploads should contain only the appointment calendar area.
             </p>
             <p>
-              <strong className="text-foreground">We use screenshots to extract availability data and verify community reports.</strong> Uploads that contain personal identifiers (names, emails, confirmation numbers, passport numbers, barcodes, or receipts) may be rejected.
+              <strong className="text-foreground">We use screenshots to extract availability data and verify community reports.</strong> Uploads that exceed size limits (over 1400x900px or 1.5MP) or contain detected personal identifiers (names, emails, confirmation numbers, passport numbers, barcodes, or receipts) will be rejected. Please crop tighter to calendar only.
             </p>
             <p>
               <strong className="text-foreground">Retention:</strong> We delete raw screenshots after verification or within 7 days of upload (whichever is sooner). If a screenshot is rejected, we delete it promptly. You can request deletion of your uploaded screenshots at any time.
@@ -316,7 +316,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-3xl font-bold mb-2">Data Storage and Retention</h2>
               <p className="text-muted-foreground">
-                We retain your data only as long as necessary for U.S. visa appointment monitoring
+                We retain your data only as long as necessary to provide alerts based on community-reported availability sightings
               </p>
             </div>
           </div>
@@ -357,8 +357,9 @@ export default function PrivacyPage() {
               We maintain minimal logs for security and abuse prevention purposes. These logs may include:
             </p>
             <ul className="space-y-2 ml-6 list-disc">
-              <li>IP addresses (anonymized/hashed) for rate limiting and abuse detection</li>
+              <li>IP addresses (pseudonymized via hashing) used for rate limiting and abuse prevention</li>
               <li>Timestamps of actions for security monitoring</li>
+              <li>Action types (e.g., upload, report) for abuse prevention</li>
               <li>Minimal moderation logs for abuse prevention (no personal identifiers)</li>
             </ul>
             <p>
@@ -481,7 +482,7 @@ export default function PrivacyPage() {
             <Shield className="w-12 h-12 text-primary mx-auto" />
             <h2 className="text-3xl font-bold">Designed with GDPR/CCPA Principles</h2>
             <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              Our U.S. visa appointment monitoring service is designed with privacy principles from the European Union&apos;s General Data Protection Regulation (GDPR) 
+              Our service providing alerts based on community-reported availability sightings is designed with privacy principles from the European Union&apos;s General Data Protection Regulation (GDPR) 
               and the California Consumer Privacy Act (CCPA). We implement data minimization, access rights, and deletion rights in our data processing.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 pt-4">

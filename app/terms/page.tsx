@@ -31,6 +31,31 @@ export default function TermsPage() {
           </div>
         </Card>
 
+        {/* Scope & Disclaimer */}
+        <Card className="p-8 mb-8 bg-yellow-500/10 border-yellow-500/30 border-2">
+          <div className="flex items-start gap-4 mb-6">
+            <AlertTriangle className="w-8 h-8 text-yellow-600 shrink-0" />
+            <div>
+              <h2 className="text-3xl font-bold mb-2">Scope & Disclaimer</h2>
+              <p className="text-muted-foreground">
+                What USVisaBridge provides and what it does not
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4 text-muted-foreground">
+            <p>
+              <strong className="text-foreground">USVisaBridge provides:</strong> Community availability sightings and educational tools to help you navigate the U.S. visa application process.
+            </p>
+            <p>
+              <strong className="text-foreground">We do not provide legal advice.</strong> Our service is for informational purposes only. For legal questions about your visa application, please consult with an immigration attorney or official government resources.
+            </p>
+            <p>
+              <strong className="text-foreground">We do not submit DS-160 forms or book appointments on your behalf.</strong> You must complete and submit all forms yourself through official U.S. government channels. We provide tools and guidance to help you prepare, but you are responsible for all submissions and bookings.
+            </p>
+          </div>
+        </Card>
+
         <Card className="p-8 mb-8 bg-card border-border">
           <div className="flex items-start gap-4 mb-6">
             <CheckCircle2 className="w-8 h-8 text-primary shrink-0" />

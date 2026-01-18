@@ -235,25 +235,32 @@ export default function AntiScamPage() {
             </p>
             <Button variant="outline" asChild>
               <Link href="/security-research">
-                Security Research →
+                View Security Research →
               </Link>
             </Button>
           </div>
         </Card>
 
-        {/* Contact */}
+        {/* Report Scam CTA */}
         <Card className="p-8 mt-8 bg-card border-border">
           <div className="text-center space-y-4">
             <h2 className="text-2xl font-bold">Have You Been Scammed?</h2>
             <p className="text-muted-foreground">
-              If you believe you&apos;ve encountered a fraudulent U.S. visa appointment service, please contact us 
-              and report it to the authorities.
+              If you believe you&apos;ve encountered a fraudulent U.S. visa appointment service, please report it 
+              to help protect others. We also recommend reporting to official authorities.
             </p>
-            <Button asChild>
-              <Link href="/contact">
-                Report a Scam →
-              </Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button asChild>
+                <Link href="/report-scam">
+                  Report a Scam →
+                </Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href="/contact">
+                  Contact Us →
+                </Link>
+              </Button>
+            </div>
           </div>
         </Card>
 
