@@ -9,7 +9,7 @@ export default function AntiScamPage() {
     {
       icon: Shield,
       title: "Verify Legitimacy",
-      description: "How to identify legitimate U.S. visa appointment monitoring services",
+      description: "How to identify legitimate U.S. visa appointment alert services",
       color: "text-blue-400",
       bgColor: "bg-blue-500/10",
       details: [
@@ -91,8 +91,7 @@ export default function AntiScamPage() {
                 <strong className="text-foreground">
                   Never share your U.S. visa application portal credentials, passport numbers, or personal documents
                 </strong>{" "}
-                with any third-party service, including this one. Legitimate U.S. visa appointment monitoring services only need
-                your email address to send alerts. Any service asking for sensitive credentials is likely fraudulent.
+                with any third-party service, including this one. We only need your email address to send alerts. Never share passwords, OTPs, passport numbers, or confirmation pages with any service.
               </p>
               <p className="text-sm text-muted-foreground">
                 We will <strong className="text-foreground">never</strong> ask for your U.S. visa application login, passport
@@ -136,7 +135,7 @@ export default function AntiScamPage() {
             <div>
               <h2 className="text-3xl font-bold mb-2">How to Spot Legitimate Services</h2>
               <p className="text-muted-foreground">
-                Signs that a U.S. visa appointment monitoring service is trustworthy
+                Signs that a U.S. visa appointment alert service is trustworthy
               </p>
             </div>
           </div>
@@ -164,7 +163,7 @@ export default function AntiScamPage() {
             </div>
             <div className="flex items-start gap-2">
               <span className="text-emerald-400 mt-1">✓</span>
-              <span><strong className="text-foreground">Legal Compliance:</strong> GDPR, CCPA compliant and transparent about practices</span>
+              <span><strong className="text-foreground">Legal Compliance:</strong> Designed with GDPR/CCPA principles (data minimization, deletion, access) and transparent about practices</span>
             </div>
           </div>
         </Card>

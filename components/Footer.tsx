@@ -1,4 +1,6 @@
 import Link from "next/link"
+import { Badge } from "@/components/ui/badge"
+import { FOOTER_LINK_GROUPS } from "@/lib/navigation"
 
 export function Footer() {
   return (
@@ -21,65 +23,40 @@ export function Footer() {
           </div>
 
           {/* Links Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Legal Links */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-foreground">Legal</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <Link href="/privacy" className="hover:text-foreground transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="hover:text-foreground transition-colors">
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact?subject=data-deletion" className="hover:text-foreground transition-colors">
-                    Request Data Deletion
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact?subject=data-access" className="hover:text-foreground transition-colors">
-                    Request Data Access
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Resources Links */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-foreground">Resources</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <a
-                    href="https://github.com/yourusername/visa-slot-tracker"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    GitHub Repository
-                  </a>
-                </li>
-                <li>
-                  <Link href="/contribute" className="hover:text-foreground transition-colors">
-                    Contributing Guide
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/license" className="hover:text-foreground transition-colors">
-                    MIT License
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="hover:text-foreground transition-colors">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {FOOTER_LINK_GROUPS.map((group) => (
+              <div key={group.title} className="space-y-4">
+                <h3 className="font-semibold text-foreground">{group.title}</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  {group.links.map((link) => (
+                    <li key={link.href}>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-foreground transition-colors inline-flex items-center gap-2"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="hover:text-foreground transition-colors inline-flex items-center gap-2"
+                        >
+                          {link.label}
+                          {link.badge === "Coming Soon" && (
+                            <Badge variant="secondary" className="text-xs">
+                              Coming Soon
+                            </Badge>
+                          )}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
