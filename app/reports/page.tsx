@@ -9,7 +9,8 @@ import { Badge } from '@/components/ui/badge'
 import { Upload, Loader2, CheckCircle2, AlertCircle, X } from 'lucide-react'
 
 // OCR Service URL - can be moved to env variable later
-const OCR_SERVICE_URL = process.env.NEXT_PUBLIC_OCR_SERVICE_URL || 'http://localhost:8000'
+const OCR_SERVICE_URL = '/api/ocr'
+
 
 export default function ReportsPage() {
   const router = useRouter()
@@ -31,181 +32,114 @@ export default function ReportsPage() {
   const [dragActive, setDragActive] = useState(false)
 
   // Map OCR location to consulate dropdown value
-  const mapLocationToConsulate = (location: string): string => {
-    const loc = location.toLowerCase()
-    if (loc.includes('mumbai')) return 'Mumbai'
-    if (loc.includes('delhi') || loc.includes('new delhi')) return 'Delhi'
-    if (loc.includes('chennai')) return 'Chennai'
-    if (loc.includes('hyderabad')) return 'Hyderabad'
-    if (loc.includes('kolkata')) return 'Kolkata'
-    if (loc.includes('bengaluru') || loc.includes('bangalore')) return 'Bengaluru'
-    if (loc.includes('pune')) return 'Pune'
-    if (loc.includes('ahmedabad')) return 'Ahmedabad'
-    return 'Mumbai' // default
-  }
+  // const mapLocationToConsulate = (location: string): string => {
+  //   const loc = location.toLowerCase()
+  //   if (loc.includes('mumbai')) return 'Mumbai'
+  //   if (loc.includes('delhi') || loc.includes('new delhi')) return 'Delhi'
+  //   if (loc.includes('chennai')) return 'Chennai'
+  //   if (loc.includes('hyderabad')) return 'Hyderabad'
+  //   if (loc.includes('kolkata')) return 'Kolkata'
+  //   if (loc.includes('bengaluru') || loc.includes('bangalore')) return 'Bengaluru'
+  //   if (loc.includes('pune')) return 'Pune'
+  //   if (loc.includes('ahmedabad')) return 'Ahmedabad'
+  //   return 'Mumbai' // default
+  // }
 
   // Parse date from OCR (e.g., "Monday September 16, 2019" or "2024-10-07")
-  const parseDate = (dateString: string): string => {
-    if (!dateString) return ''
+  // const parseDate = (dateString: string): string => {
+  //   if (!dateString) return ''
     
-    // Try ISO format first
-    if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
-      return dateString
-    }
+  //   // Try ISO format first
+  //   if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+  //     return dateString
+  //   }
 
-    // Try to parse common formats
-    try {
-      const date = new Date(dateString)
-      if (!isNaN(date.getTime())) {
-        const year = date.getFullYear()
-        const month = String(date.getMonth() + 1).padStart(2, '0')
-        const day = String(date.getDate()).padStart(2, '0')
-        return `${year}-${month}-${day}`
-      }
-    } catch (e) {
-      // Continue to manual parsing
-    }
+  //   // Try to parse common formats
+  //   try {
+  //     const date = new Date(dateString)
+  //     if (!isNaN(date.getTime())) {
+  //       const year = date.getFullYear()
+  //       const month = String(date.getMonth() + 1).padStart(2, '0')
+  //       const day = String(date.getDate()).padStart(2, '0')
+  //       return `${year}-${month}-${day}`
+  //     }
+  //   } catch (e) {
+  //     // Continue to manual parsing
+  //   }
 
-    // Manual parsing for "Monday September 16, 2019" format
-    const months: { [key: string]: string } = {
-      'january': '01', 'february': '02', 'march': '03', 'april': '04',
-      'may': '05', 'june': '06', 'july': '07', 'august': '08',
-      'september': '09', 'october': '10', 'november': '11', 'december': '12'
-    }
+  //   // Manual parsing for "Monday September 16, 2019" format
+  //   const months: { [key: string]: string } = {
+  //     'january': '01', 'february': '02', 'march': '03', 'april': '04',
+  //     'may': '05', 'june': '06', 'july': '07', 'august': '08',
+  //     'september': '09', 'october': '10', 'november': '11', 'december': '12'
+  //   }
 
-    const parts = dateString.toLowerCase().split(/\s+/)
-    for (const part of parts) {
-      if (months[part]) {
-        const monthNum = months[part]
-        // Extract day and year
-        const dayMatch = dateString.match(/\b(\d{1,2})\b/)
-        const yearMatch = dateString.match(/\b(20\d{2})\b/)
-        if (dayMatch && yearMatch) {
-          const day = dayMatch[1].padStart(2, '0')
-          const year = yearMatch[1]
-          return `${year}-${monthNum}-${day}`
-        }
-      }
-    }
+  //   const parts = dateString.toLowerCase().split(/\s+/)
+  //   for (const part of parts) {
+  //     if (months[part]) {
+  //       const monthNum = months[part]
+  //       // Extract day and year
+  //       const dayMatch = dateString.match(/\b(\d{1,2})\b/)
+  //       const yearMatch = dateString.match(/\b(20\d{2})\b/)
+  //       if (dayMatch && yearMatch) {
+  //         const day = dayMatch[1].padStart(2, '0')
+  //         const year = yearMatch[1]
+  //         return `${year}-${monthNum}-${day}`
+  //       }
+  //     }
+  //   }
 
-    return ''
-  }
+  //   return ''
+  // }
+const processOCR = async (file: File) => {
+  setOcrProcessing(true)
+  setMessage('')
 
-  const processOCR = async (file: File) => {
-    setOcrProcessing(true)
-    setMessage('')
-    setOcrResult(null)
+  try {
+    const formData = new FormData()
+    formData.append('file', file)
 
-    try {
-      const formDataToSend = new FormData()
-      formDataToSend.append('file', file)
+    const res = await fetch(OCR_SERVICE_URL, {
+      method: 'POST',
+      body: formData,
+    })
 
-      const response = await fetch(`${OCR_SERVICE_URL}/ocr`, {
-        method: 'POST',
-        body: formDataToSend,
-      })
+    const data = await res.json()
 
-      const data = await response.json()
-
-      if (data.success && data.form_data) {
-        setOcrResult(data)
-        
-        // Auto-fill form from OCR data
-        const ocrData = data.form_data
-        const newFormData = { ...formData }
-
-        // Map location to consulate
-        if (ocrData.location) {
-          const mappedConsulate = mapLocationToConsulate(ocrData.location)
-          newFormData.consulate = mappedConsulate
-        }
-
-        // Extract dates from available_slots array
-        if (ocrData.available_slots && Array.isArray(ocrData.available_slots) && ocrData.available_slots.length > 0) {
-          // Get the first slot date as earliest_date
-          const firstSlot = ocrData.available_slots[0]
-          if (firstSlot.date) {
-            // date is already in YYYY-MM-DD format from OCR parser
-            newFormData.earliest_date = firstSlot.date
-          } else if (firstSlot.display) {
-            // Fallback to parsing display string
-            const parsedDate = parseDate(firstSlot.display)
-            if (parsedDate) {
-              newFormData.earliest_date = parsedDate
-            }
-          }
-
-          // If multiple slots, use last one as latest_date
-          if (ocrData.available_slots.length > 1) {
-            const lastSlot = ocrData.available_slots[ocrData.available_slots.length - 1]
-            if (lastSlot.date) {
-              newFormData.latest_date = lastSlot.date
-            } else if (lastSlot.display) {
-              const parsedDate = parseDate(lastSlot.display)
-              if (parsedDate) {
-                newFormData.latest_date = parsedDate
-              }
-            }
-          }
-        }
-
-        // Use earliest_date and latest_date if provided directly by OCR (new format)
-        if (ocrData.earliest_date && !newFormData.earliest_date) {
-          newFormData.earliest_date = ocrData.earliest_date
-        }
-        if (ocrData.latest_date && !newFormData.latest_date) {
-          newFormData.latest_date = ocrData.latest_date
-        }
-
-        // Extract total slots from OCR if available
-        if (ocrData.total_slots && !newFormData.slot_count) {
-          newFormData.slot_count = ocrData.total_slots.toString()
-        }
-
-        // Legacy support: If OCR returns single date field (older format)
-        if (ocrData.date && !newFormData.earliest_date) {
-          const parsedDate = parseDate(ocrData.date)
-          if (parsedDate) {
-            newFormData.earliest_date = parsedDate
-          }
-        }
-
-        setFormData(newFormData)
-        setMessage('Form auto-filled from screenshot! Please verify and edit as needed.')
-      } else {
-        setMessage(data.message || 'OCR processing completed but no data extracted. Please fill the form manually.')
-      }
-    } catch (error) {
-      console.error('OCR error:', error)
-      setMessage('OCR service unavailable. You can still fill the form manually.')
-    } finally {
-      setOcrProcessing(false)
-    }
-  }
-
-  const handleFileSelect = async (file: File) => {
-    // Validate file
-    if (file.size > 2 * 1024 * 1024) {
-      setMessage('Screenshot must be less than 2MB')
-      return
-    }
-    if (!['image/png', 'image/jpeg', 'image/jpg'].includes(file.type)) {
-      setMessage('Screenshot must be PNG or JPEG')
+    if (!res.ok) {
+      setMessage(data.message || 'Invalid screenshot')
       return
     }
 
-    setScreenshot(file)
-    
-    // Create preview
-    const reader = new FileReader()
-    reader.onloadend = () => {
-      setScreenshotPreview(reader.result as string)
-    }
-    reader.readAsDataURL(file)
+    const ocr = data.form_data
 
-    // Process OCR
-    await processOCR(file)
+    setFormData(prev => ({
+      ...prev,
+      consulate: ocr.consulate ?? prev.consulate,
+      visa_type: prev.visa_type, // user input
+      earliest_date: ocr.earliest_available_date ?? '',
+      latest_date: ocr.latest_available_date ?? '',
+      slot_count: ocr.available_slots?.toString() ?? '',
+    }))
+
+    setMessage('Form auto-filled from screenshot. Please verify.')
+  } catch (err) {
+    setMessage('OCR service unavailable. Please fill manually.')
+  } finally {
+    setOcrProcessing(false)
   }
+}
+
+ const handleFileSelect = async (file: File) => {
+  setScreenshot(file)
+
+  const reader = new FileReader()
+  reader.onloadend = () => setScreenshotPreview(reader.result as string)
+  reader.readAsDataURL(file)
+
+  await processOCR(file) 
+}
+
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault()
@@ -234,12 +168,16 @@ export default function ReportsPage() {
     }
   }
 
-  const removeScreenshot = () => {
-    setScreenshot(null)
-    setScreenshotPreview(null)
-    setOcrResult(null)
-    setMessage('')
+const removeScreenshot = () => {
+  setScreenshot(null)
+  setScreenshotPreview(null)
+  setOcrResult(null)
+  setMessage('')
+  if (fileInputRef.current) {
+    fileInputRef.current.value = ''
   }
+}
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
