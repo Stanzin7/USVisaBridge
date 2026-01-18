@@ -12,7 +12,7 @@ export default function FAQPage() {
         "Unlike competitors that violate privacy laws, we&apos;re 100% free, open source, and legally compliant. We never intercept API calls, capture screenshots, store credentials, or collect PII without consent. Our code is open source, so you can verify our privacy practices yourself.",
     },
     {
-      question: "How do you monitor visa slots?",
+      question: "How do you track visa slot availability?",
       answer:
         "We notify you when community members upload a recent calendar screenshot showing availability. Community members voluntarily upload screenshots of the appointment calendar (manual, user-initiated). We extract availability data from these screenshots and analyze patterns. We never run code on the visa portal site, never automatically capture screenshots, and never intercept API calls. All uploads are manual and voluntary.",
     },
@@ -29,17 +29,17 @@ export default function FAQPage() {
     {
       question: "Do you need my government portal credentials?",
       answer:
-        "No, absolutely not. We never ask for or store any government portal credentials, passport numbers, or personal login information. We only need your email address to send you alerts when U.S. visa appointments become available.",
+        "No, absolutely not. We never ask for or store any government portal credentials, passport numbers, or personal login information. We only need your email address to alert you when verified community sightings match your preferences.",
     },
     {
-      question: "How does the monitoring work without my credentials?",
+      question: "How does it work without my credentials?",
       answer:
         "We don&apos;t monitor your account. We rely on community sightings. You always book yourself. When community members share calendar screenshots showing availability, we notify users with matching preferences. This method is safe, legal, and does not require any personal credentials.",
     },
     {
       question: "Is this service affiliated with any government?",
       answer:
-        "No, we are an independent third-party monitoring service. We are not affiliated with, endorsed by, or connected to any government, embassy, or consulate. We alert users based on community sightings shared voluntarily through screenshots.",
+        "No, we are an independent third-party service. We are not affiliated with, endorsed by, or connected to any government, embassy, or consulate. We alert users based on community sightings shared voluntarily through screenshots.",
     },
     {
       question: "What information do you collect?",
@@ -69,7 +69,7 @@ export default function FAQPage() {
     {
       question: "Can you guarantee I will get an appointment?",
       answer:
-        "No. We can only notify you when U.S. visa appointments become available. Securing an appointment depends on your ability to book it quickly through the official U.S. visa application channels. Our service increases your chances by alerting you the moment slots open up.",
+        "No. We alert you when verified community sightings match your preferences. Securing an appointment depends on your ability to book it quickly through the official U.S. visa application channels. Our service increases your chances by alerting you when community members report sightings.",
     },
     {
       question: "Is using this service legal?",
@@ -98,7 +98,7 @@ export default function FAQPage() {
           <HelpCircle className="w-16 h-16 text-primary mx-auto mb-4" />
           <h1 className="text-4xl md:text-5xl font-bold text-balance">Frequently Asked Questions</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to know about our U.S. visa appointment monitoring service
+            Everything you need to know about our community-based visa appointment alerts
           </p>
         </div>
 

@@ -12,7 +12,7 @@ export function HomepageFAQSection() {
     {
       question: "Do you need my government portal credentials?",
       answer:
-        "No, absolutely not. We never ask for or store any U.S. visa application portal credentials, passport numbers, or personal login information. We only need your email address to send you alerts when U.S. visa appointments become available.",
+        "No, absolutely not. We never ask for or store any U.S. visa application portal credentials, passport numbers, or personal login information. We only need your email address to alert you when verified community sightings match your preferences.",
     },
     {
       question: "Is the code really open source?",
@@ -36,7 +36,7 @@ export function HomepageFAQSection() {
       <div className="container mx-auto max-w-4xl px-4">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl md:text-5xl font-bold text-balance">Frequently Asked Questions</h2>
-          <p className="text-xl text-muted-foreground text-pretty">Common questions about our U.S. visa appointment monitoring service</p>
+          <p className="text-xl text-muted-foreground text-pretty">Common questions about our community-based visa appointment alerts</p>
         </div>
 
         <Accordion type="single" collapsible className="space-y-4 mb-8">

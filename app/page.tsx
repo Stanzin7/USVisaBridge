@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
-import { Bell, Shield, CheckCircle2, Lock, Eye, Zap, Play, AlertTriangle } from 'lucide-react'
+import { Bell, Shield, CheckCircle2, Lock, Eye, Zap, Play, AlertTriangle, Users } from 'lucide-react'
 import { AlertChannelsSection } from "@/components/AlertChannelsSection"
 
 export default async function Home() {
@@ -20,6 +20,37 @@ export default async function Home() {
     <main className="min-h-screen">
       {/* HERO SECTION */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#0a0d1a] via-[#111827] to-background">
+        {/* Mission Ribbon (top-left) */}
+        <div 
+          className="pointer-events-none absolute top-0 left-0 z-20 hidden sm:block ribbon backdrop-blur-sm"
+          style={{
+            fontSize: '12px',
+            fontWeight: '500',
+            color: '#fbbf24',
+            lineHeight: 1.8,
+            paddingTop: '14px',
+            paddingBottom: '16px',
+            paddingLeft: 'calc(1lh + 20px)',
+            paddingRight: 'calc(1lh + 20px)',
+            borderImage: 'conic-gradient(#0008 0 0) 51%/0.5em',
+            border: '1px solid rgba(251, 191, 36, 0.2)',
+            clipPath: 'polygon(100% calc(100% - 0.5em),100% 100%,calc(100% - 0.5em) calc(100% - 0.5em),0.5em calc(100% - 0.5em), 0 100%,0 calc(100% - 0.5em),999px calc(100% - 0.5em - 999px),calc(100% - 999px) calc(100% - 0.5em - 999px))',
+            transform: 'translate(calc((cos(45deg) - 1)*100%), -100%) rotate(-45deg)',
+            transformOrigin: '100% 100%',
+            backgroundColor: 'rgba(251, 191, 36, 0.1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          } as React.CSSProperties}
+          aria-hidden="true"
+        >
+          <div className="flex items-center gap-1">
+            <Users className="h-3 w-3 text-amber-400" />
+            <span className="whitespace-nowrap text-amber-400 text-xs font-medium">
+              Built for applicants — powered by community
+            </span>
+          </div>
+        </div>
         {/* Status Indicators */}
         <div className="absolute top-8 right-8 hidden lg:flex gap-3">
           <span className="inline-flex items-center justify-center rounded-md border text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden bg-emerald-500/10 text-emerald-400 border-emerald-500/20 backdrop-blur-sm px-4 py-2">
@@ -38,19 +69,20 @@ export default async function Home() {
               <span className="text-sm text-muted-foreground">Free, Automation-Free, Open-Source</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
-              Community Visa Slot Sightings
-              <br />
+              Stop Refreshing.{' '}
               <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                Manual, Proof-Based
+                Start Checking Smarter.
               </span>
             </h1>
+            <span className="sr-only">Built for applicants — powered by community</span>
 
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
-              Check less. Waste fewer logins. Get alerted when the community just saw availability. 
-              Use your limited portal checks only when there&apos;s fresh proof.
+            <p className="text-xl md:text-2xl text-foreground/90 max-w-2xl mx-auto text-pretty leading-relaxed">
+              Get alerts when people share proof of open visa appointment dates — no bots, no passwords.
             </p>
-            <p className="text-sm text-muted-foreground mt-4 max-w-2xl mx-auto">
-              We don&apos;t check the portal for you. Alerts are based on community sightings.
+            <p className="text-lg text-foreground/80 mt-4 max-w-2xl mx-auto">
+              When someone uploads a fresh calendar screenshot, we tell you.
+              <br />
+              So you only check the official site when there&apos;s a real chance.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -67,39 +99,41 @@ export default async function Home() {
             </div>
 
             <p className="text-sm text-muted-foreground pt-4">
-              No visa portal password required. No automation. You book it yourself.
+              Not affiliated with the U.S. government. You book on the official site.
             </p>
           </div>
           
           {/* Feature Banner */}
-          <div className="mt-16 border-t border-border/20 pt-8">
-            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
-                  <Shield className="w-5 h-5 text-purple-400" />
+          <div className="mt-16 pt-8">
+            <div className="bg-[#111827] backdrop-blur-md rounded-full px-6 py-4 max-w-fit mx-auto shadow-[0_4px_12px_rgba(0,0,0,1.5)]">
+              <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 md:flex-nowrap overflow-x-auto md:overflow-visible">
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-white stroke-2" strokeWidth={2} fill="none" />
+                  </div>
+                  <span className="text-sm text-white font-medium">No Visa Portal Password Required</span>
                 </div>
-                <span className="text-sm text-muted-foreground font-medium">No Visa Portal Password Required</span>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
-                  <Eye className="w-5 h-5 text-blue-400" />
+                
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-blue-700 flex items-center justify-center">
+                    <Eye className="w-5 h-5 text-white stroke-2" strokeWidth={2} fill="none" />
+                  </div>
+                  <span className="text-sm text-white font-medium">Community uploads only</span>
                 </div>
-                <span className="text-sm text-muted-foreground font-medium">Public Data Only</span>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-emerald-700 flex items-center justify-center">
+                    <CheckCircle2 className="w-5 h-5 text-white stroke-2" strokeWidth={2} fill="none" />
+                  </div>
+                  <span className="text-sm text-white font-medium">You Book It Yourself</span>
                 </div>
-                <span className="text-sm text-muted-foreground font-medium">You Book It Yourself</span>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
-                  <Lock className="w-5 h-5 text-blue-400" />
+                
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-blue-700 flex items-center justify-center">
+                    <Lock className="w-5 h-5 text-white stroke-2" strokeWidth={2} fill="none" />
+                  </div>
+                  <span className="text-sm text-white font-medium">Privacy-First</span>
                 </div>
-                <span className="text-sm text-muted-foreground font-medium">Privacy-First</span>
               </div>
             </div>
           </div>
@@ -248,7 +282,7 @@ export default async function Home() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">✗</span>
-                  <span>Real-time monitoring (shows &quot;last seen&quot;)</span>
+                  <span>Real-time alerts (shows &quot;last seen&quot;)</span>
                 </li>
               </ul>
             </Card>

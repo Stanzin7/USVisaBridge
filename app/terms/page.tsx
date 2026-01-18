@@ -25,7 +25,7 @@ export default function TermsPage() {
               agree to these terms, you should not use our service.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              USVisaBridge is a free, open-source U.S. visa appointment slot monitoring service. We are not 
+              USVisaBridge provides community availability sightings and educational tools. We are not 
               affiliated with, endorsed by, or connected to any government, embassy, or consulate.
             </p>
           </div>
@@ -70,7 +70,7 @@ export default function TermsPage() {
           <div className="space-y-4 text-muted-foreground">
             <p>You agree to:</p>
             <ul className="space-y-2 ml-6 list-disc">
-              <li>Use the service only for monitoring U.S. visa appointment availability</li>
+              <li>Use the service only for receiving alerts about U.S. visa appointment availability</li>
               <li>Provide accurate and truthful information when creating alerts</li>
               <li>Not attempt to abuse, hack, or interfere with our service</li>
               <li>Not use our service for any illegal or unauthorized purpose</li>
@@ -95,15 +95,15 @@ export default function TermsPage() {
               <ul className="space-y-2 text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>Monitor publicly available U.S. visa appointment slot availability</span>
+                  <span>Share community sightings of U.S. visa appointment slot availability</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>Send notifications when U.S. visa appointment slots become available based on your preferences</span>
+                  <span>Send notifications when verified community sightings match your preferences</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>Provide a free, open-source, and legally compliant U.S. visa appointment monitoring service</span>
+                  <span>Provide a free, open-source community sighting and alert service</span>
                 </li>
               </ul>
             </div>
@@ -121,7 +121,7 @@ export default function TermsPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-                  <span><strong className="text-foreground">We are not affiliated with any government:</strong> We are an independent third-party service for U.S. visa appointment monitoring.</span>
+                  <span><strong className="text-foreground">We are not affiliated with any government:</strong> We are an independent service providing community sightings and alerts.</span>
                 </li>
               </ul>
             </div>
@@ -141,13 +141,13 @@ export default function TermsPage() {
 
           <div className="space-y-4 text-muted-foreground">
             <p>
-              <strong className="text-foreground">Service Availability:</strong> We provide this U.S. visa appointment 
-              monitoring service &quot;as is&quot; and &quot;as available.&quot; We do not guarantee that the service will be 
+              <strong className="text-foreground">Service Availability:</strong> We provide this service 
+              &quot;as is&quot; and &quot;as available.&quot; We do not guarantee that the service will be 
               available at all times or that notifications will be delivered without delay.
             </p>
             <p>
               <strong className="text-foreground">No Warranties:</strong> We make no warranties, expressed 
-              or implied, regarding the accuracy, reliability, or availability of our U.S. visa appointment monitoring service.
+              or implied, regarding the accuracy, reliability, or availability of our service.
             </p>
             <p>
               <strong className="text-foreground">No Appointment Guarantees:</strong> We cannot guarantee 

@@ -1,42 +1,32 @@
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Mail, MessageSquare, Smartphone, BellRing } from "lucide-react"
+import { ALERT_CHANNELS } from "@/lib/alertChannels"
+
+// Icon mapping for channels
+const channelIcons: Record<string, typeof Mail> = {
+  email: Mail,
+  sms: MessageSquare,
+  whatsapp: BellRing,
+  push: Smartphone,
+}
+
+// Color mapping for channels
+const channelColors: Record<string, { color: string; bgColor: string }> = {
+  email: { color: "text-blue-400", bgColor: "bg-blue-500/10" },
+  sms: { color: "text-emerald-400", bgColor: "bg-emerald-500/10" },
+  whatsapp: { color: "text-green-400", bgColor: "bg-green-500/10" },
+  push: { color: "text-purple-400", bgColor: "bg-purple-500/10" },
+}
 
 export function AlertChannelsSection() {
-  const channels = [
-    {
-      icon: Mail,
-      name: "Email",
-      description: "Instant email notifications to your inbox",
-      status: "available",
-      color: "text-blue-400",
-      bgColor: "bg-blue-500/10",
-    },
-    {
-      icon: MessageSquare,
-      name: "SMS",
-      description: "Text message alerts directly to your phone",
-      status: "coming-soon",
-      color: "text-emerald-400",
-      bgColor: "bg-emerald-500/10",
-    },
-    {
-      icon: BellRing,
-      name: "WhatsApp",
-      description: "WhatsApp notifications for instant updates",
-      status: "coming-soon",
-      color: "text-green-400",
-      bgColor: "bg-green-500/10",
-    },
-    {
-      icon: Smartphone,
-      name: "Push Notifications",
-      description: "Mobile app push notifications",
-      status: "coming-soon",
-      color: "text-purple-400",
-      bgColor: "bg-purple-500/10",
-    },
-  ]
+  const channels = ALERT_CHANNELS.map((ch) => ({
+    icon: channelIcons[ch.key] || Mail,
+    name: ch.label,
+    description: ch.description || "",
+    status: ch.status as "available" | "coming-soon",
+    ...channelColors[ch.key],
+  }))
 
   return (
     <section className="py-24 px-4 bg-muted/10">

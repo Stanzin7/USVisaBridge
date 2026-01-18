@@ -38,9 +38,9 @@ export default function HowItWorksPage() {
           <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 mb-4">
             How It Works
           </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-balance">How Our U.S. Visa Appointment Monitoring Works</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-balance">How Our U.S. Visa Appointment Alerts Work</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Detailed explanation of our monitoring process for U.S. visa appointments
+            Detailed explanation of how community sightings help you find available appointments
           </p>
         </div>
 
@@ -144,9 +144,9 @@ export default function HowItWorksPage() {
           <div className="flex items-start gap-4 mb-6">
             <Zap className="w-8 h-8 text-primary shrink-0" />
             <div>
-              <h2 className="text-3xl font-bold mb-2">Monitoring Process</h2>
+              <h2 className="text-3xl font-bold mb-2">How Community Sightings Work</h2>
               <p className="text-muted-foreground">
-                How slot availability data flows through our system
+                How verified community sightings turn into alerts
               </p>
             </div>
           </div>
@@ -184,7 +184,7 @@ export default function HowItWorksPage() {
             </div>
             <div className="flex items-start gap-2">
               <Shield className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-              <span><strong className="text-foreground">Data Minimization:</strong> We only collect the minimum data necessary for U.S. visa appointment monitoring</span>
+              <span><strong className="text-foreground">Data Minimization:</strong> We only collect the minimum data necessary for community sighting alerts</span>
             </div>
             <div className="flex items-start gap-2">
               <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
