@@ -58,7 +58,7 @@ pip / conda
 CPU only (no GPU required)
 
 # Local Setup (Recommended)
-1️⃣ Create & activate environment
+Create & activate environment:
 conda create -n ocr310 python=3.10
 conda activate ocr310
 
@@ -108,7 +108,7 @@ You can upload an image directly from the browser.
   }
 }
 
-⚡ Performance Notes
+Performance Notes
 
 Images are resized before OCR for speed
 

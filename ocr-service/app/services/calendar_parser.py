@@ -14,7 +14,7 @@ def parse_calendar(text: str) -> list[dict]:
     current_month = None
 
     for line in lines:
-        # ✅ Detect "Month YYYY" dynamically
+        # Detect "Month YYYY" dynamically
         if any(m in line for m in MONTHS) and YEAR_REGEX.search(line):
             current_month = {
                 "month": line,
@@ -23,7 +23,7 @@ def parse_calendar(text: str) -> list[dict]:
             months.append(current_month)
             continue
 
-        # ✅ Detect calendar day numbers
+        # Detect calendar day numbers
         if current_month and line.isdigit():
             day = int(line)
             if 1 <= day <= 31:

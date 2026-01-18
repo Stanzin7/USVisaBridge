@@ -10,10 +10,6 @@ import { calculateConfidence, shouldAutoVerify } from "@/lib/scoring";
 
 export const dynamic = "force-dynamic";
 
-/* -------------------------------------------------------------------------- */
-/*                                   TYPES                                    */
-/* -------------------------------------------------------------------------- */
-
 type SlotReport = {
   id: string;
   reporter_id: string | null;
@@ -40,7 +36,7 @@ const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];
 // POST: Create slot report (with optional screenshot upload)
 export async function POST(request: NextRequest) {
   try {
-    /* ------------------------------ Auth check ------------------------------ */
+    // Auth check
     const { user, error: authError } = (await getCurrentUser()) as AuthResult;
 
     if (authError || !user) {
@@ -147,7 +143,7 @@ export async function POST(request: NextRequest) {
     // Determine status (auto-verify if confidence >= 0.75)
     const status = shouldAutoVerify(confidence) ? "verified" : "pending";
 
-    /* ------------------------------ Insert report ----------------------------- */
+    // Insert report
     const insertResult = await adminSupabase
       .from("slot_reports")
       .insert({
@@ -204,7 +200,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    /* ------------------------------ Fetch reports ----------------------------- */
+    // Fetch reports
     const supabase = await createClient();
     const {
       data,

@@ -3,10 +3,6 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { PostgrestError } from "@supabase/supabase-js";
 
-/* -------------------------------------------------------------------------- */
-/*                                   TYPES                                    */
-/* -------------------------------------------------------------------------- */
-
 type SlotReport = {
   id: string;
   reporter_id: string | null;

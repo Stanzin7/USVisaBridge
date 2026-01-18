@@ -6,10 +6,6 @@ import { getCurrentUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
-/* -------------------------------------------------------------------------- */
-/*                                   TYPES                                    */
-/* -------------------------------------------------------------------------- */
-
 type Profile = {
   id: string;
   email: string | null;
@@ -37,7 +33,7 @@ export async function GET(
   { params }: { params: { path: string } }
 ) {
   try {
-    /* ------------------------------ Auth check ------------------------------ */
+    // Auth check
     const { user, error: authError } = (await getCurrentUser()) as AuthResult;
 
     if (authError || !user) {
@@ -47,7 +43,7 @@ export async function GET(
     const adminSupabase = createAdminClient();
     const path = decodeURIComponent(params.path);
 
-    /* ------------------------------ Get report ----------------------------- */
+    // Get report
     const {
       data: report,
       error: reportError,
@@ -64,7 +60,7 @@ export async function GET(
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    /* ----------------------------- Admin check ----------------------------- */
+    // Admin check
     const {
       data: userProfile,
       error: profileError,
@@ -87,7 +83,7 @@ export async function GET(
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    /* ------------------------- Get signed URL for screenshot ------------------------ */
+    // Get signed URL for screenshot
     const { data, error } = await adminSupabase.storage
       .from("screenshots")
       .createSignedUrl(path, 3600); // 1 hour expiry
@@ -99,7 +95,7 @@ export async function GET(
       );
     }
 
-    /* ------------------------------ Redirect to signed URL ----------------------------- */
+    // Redirect to signed URL
     return NextResponse.redirect(data.signedUrl);
   } catch (error) {
     console.error("[API] Error serving screenshot:", error);
