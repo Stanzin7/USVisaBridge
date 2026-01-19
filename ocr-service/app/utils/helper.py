@@ -1,21 +1,43 @@
 from datetime import datetime
 def build_form_response(parsed: dict) -> dict:
+    meta = parsed.get("meta", {}) or {}
+    available_slots = parsed.get("available_slots") or []
+
     return {
-        "visa_type": None,  # always user input
+        # always user-entered
+        "visa_type": None,
+
+        # normalize location
         "consulate": normalize_consulate(parsed.get("location")),
-        "earliest_available_date": to_ddmmyyyy(parsed.get("earliest_date")),
-        "latest_available_date": to_ddmmyyyy(parsed.get("latest_date")),
-        "available_slots": normalize_slots(parsed.get("total_slots")),
+
+        # dates (already ISO, just format)
+       "earliest_available_date": parsed.get("earliest_date"),
+
+        # "latest_available_date": to_ddmmyyyy(parsed.get("latest_date")),
+
+        # keep slots as-is OR flatten for UI
+        "available_slots": [
+            {
+                "date": (slot.get("date")),
+                "time": slot.get("time"),
+                "count": slot.get("count"),
+                "display": slot.get("display"),
+                "source": slot.get("source"),
+            }
+            for slot in available_slots
+        ] if available_slots else [],
+
+        # aggregate count (for simple forms)
+        "total_slots": parsed.get("total_slots"),
+
+        # metadata
         "meta": {
-            "source": parsed.get("meta", {}).get("source"),
-            "confidence": parsed.get("meta", {}).get("confidence"),
-            "note": (
-                "Only earliest available date detected"
-                if parsed.get("latest_date") is None
-                else None
-            ),
+            "sources": meta.get("sources", []),
+            "confidence": meta.get("confidence", 0.0),
+            "note": meta.get("note"),
         },
     }
+
 
 
 def to_ddmmyyyy(date_iso: str | None) -> str | None:

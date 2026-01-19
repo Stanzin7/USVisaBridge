@@ -2,7 +2,7 @@
 import hashlib
 from PIL import Image
 
-MAX_WIDTH = 1200
+MAX_WIDTH = 1024
 
 def resize_image(image: Image.Image) -> Image.Image:
     if image.width > MAX_WIDTH:
